@@ -1,0 +1,34 @@
+__@ Cadastro
+--> Nome, usuário, número e senha
+--> Escolher cargo que ocupa
+--> Foto de perfil
+--> Mensagens de erro
+
+__@ Login
+--> Usuário e senha
+--> Esqueceu a senha?
+--> Mensagens de erro
+
+__@ Tela inicial
+--> Logo animada
+--> Breve explicação da função da aplicação web
+
+__@ Demonstrativo das tabelas
+--> Área central dedicada às tableas com capacidade de scroolar somente a área das tabelas
+--> Usuários, salas (equipamentos) e salas (reservas)
+--> Imprimir corretamente a tabela relacionada às reservas
+--> Admin consegue excluir, editar e criar
+--> Aparecer o nome de quem reservou, curso e foto de perfil de quem reservou (é bom, por exemplo, para identificar profissionais novos que alguém pode desconhecer
+--> Botão de realizar reserva leva para uma nova tela
+--> Reservado -> Vermelho
+--> Livre -> Verde
+
+__@ Realizar reserva
+--> Apresentar planta da escola
+--> Simbolizar blocos com os nomes dos espaços
+--> Mensagens de erro (ex: sala já reservada)
+
+
+__@ Funções por fora
+--> Notificação no WhatsApp quando faltar 24h para chegar na data marcada
+--> Chatbot 

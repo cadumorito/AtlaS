@@ -1,0 +1,68 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    justify-content: space-between; /* Espaço igual entre as colunas */
+    align-items: center; /* Alinhar verticalmente ao centro */
+    padding: 20px; /* Adiciona um pouco de espaço ao redor do conteúdo */
+}
+
+.usuario-left {
+    flex: 1; /* Ocupa uma parte igual do espaço disponível */
+    text-align: center; /* Centraliza o conteúdo dentro da coluna */
+    border-right: 3px solid rgba(0, 0, 0, 0.179); /* Borda preta somente na direita */
+    padding: 10px; /* Adiciona um pouco de espaço interno */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+    z-index: 10;
+}
+
+.usuario-right {
+    flex: 1; /* Ocupa uma parte igual do espaço disponível */
+    text-align: center; /* Centraliza o conteúdo dentro da coluna */
+    border-left: 3px solid rgba(0, 0, 0, 0.179); /* Borda preta somente na esquerda */
+    padding: 10px; /* Adiciona um pouco de espaço interno */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+    z-index: 10;
+}
+
+.fundoFoto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 2; /* Coluna central ocupa o dobro do espaço em relação às laterais */
+    overflow: hidden;
+    height: 200%;
+    margin-bottom: auto;
+    margin-top: 20px;
+}
+
+.banner {
+    border-bottom: 5px solid rgba(215, 133, 133, 0.878);
+    box-shadow: rgba(215, 133, 133, 0.878) 0px 0px 30px 4px;
+    position: relative;
+    width: 100%; /* Ajusta a largura da imagem do banner */
+    overflow: hidden;
+}
+
+.fotoPerfil {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin-top: -135px; /* Ajusta o posicionamento da imagem */
+    z-index: 100;
+    border: 5px solid rgba(215, 133, 133, 0.878);
+    box-shadow: rgba(215, 133, 133, 0.878) 0px 0px 30px 4px;
+    z-index: 100000000 !important;
+    margin-bottom: 20px;
+}
+
+/* Ajusta a largura mínima das colunas, se necessário */
+.usuario-left, .usuario-right {
+    min-width: 200px;
+    height: 2000px;
+}

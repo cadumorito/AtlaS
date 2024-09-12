@@ -1,0 +1,213 @@
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column; /* Corrigido para manter a centralização vertical */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    margin-top: 100px;
+  }
+
+  
+  .hero-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    position: absolute;
+    text-align: center;
+    margin-top: 400px;
+    margin-bottom: 200px;
+}
+
+.hero-banner__title {
+    color: #000000;
+    font-size: 140px;
+    font-weight: 700;
+    padding: 0 20px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.hero-banner__title-part {
+    display: block; /* Faz com que cada parte do texto ocupe sua própria linha */
+}
+
+.hero-banner__stroked-title {
+    color: transparent;
+    -webkit-text-stroke: 2px white;
+}
+
+.hero-banner__image {
+    border-radius: 20px;
+    position: absolute;
+    width: 350px;
+    animation: bounce2 2s ease infinite;
+    box-shadow: #000000b0 0px 10px 10px -7px;
+}
+  @keyframes bounce2 {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-30px);}
+      60% {transform: translateY(-15px);}
+  }
+
+.content {
+    background-color: #eaeaea;
+    font-size: 40px;
+    padding: 120px 80px;
+    height: 100vh;
+}
+
+.cronograma {
+    margin-top: 500px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    position: relative;
+    padding: 0 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+    border: 0;
+    box-shadow: hsl(0, 100%, 40%) 0px 7px 0px 0px;
+    background-color: hsl(0, 98%, 52%);
+
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 31ms cubic-bezier(.5, .7, .4, 1);
+   }
+   
+   button:before {
+    content: attr(alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 4px;
+    opacity: 1;
+   }
+   
+   button:active {
+    box-shadow: none;
+    transform: translateY(7px);
+    transition: 35ms cubic-bezier(.5, .7, .4, 1);
+   }
+   
+   button:hover:before {
+    transition: all .0s;
+    transform: translateY(100%);
+    opacity: 0;
+   }
+   
+   button i {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    font-style: normal;
+    transition: all 2s ease;
+    transform: translateY(-20px);
+    opacity: 0;
+   }
+   
+   button:hover i {
+    transition: all .2s ease;
+    transform: translateY(0px);
+    opacity: 1;
+   }
+   
+   button:hover i:nth-child(1) {
+    transition-delay: 0.045s;
+   }
+   
+   button:hover i:nth-child(2) {
+    transition-delay: calc(0.045s * 3);
+   }
+   
+   button:hover i:nth-child(3) {
+    transition-delay: calc(0.045s * 4);
+   }
+   
+   button:hover i:nth-child(4) {
+    transition-delay: calc(0.045s * 5);
+   }
+   
+   button:hover i:nth-child(6) {
+    transition-delay: calc(0.045s * 6);
+   }
+   
+   button:hover i:nth-child(7) {
+    transition-delay: calc(0.045s * 7);
+   }
+   
+   button:hover i:nth-child(8) {
+    transition-delay: calc(0.045s * 8);
+   }
+   
+   button:hover i:nth-child(9) {
+    transition-delay: calc(0.045s * 9);
+   }
+   
+   button:hover i:nth-child(10) {
+    transition-delay: calc(0.045s * 10);
+   }
+
+.container {
+    width: 100%;
+    max-width: 1200px; /* Define a largura máxima da área visível */
+    overflow: hidden; /* Esconde o conteúdo que ultrapassa o contêiner */
+}
+
+.scrolling-wrapper {
+    overflow: hidden; /* Esconde as partes não visíveis */
+    white-space: nowrap; /* Faz com que os elementos sejam exibidos em linha */
+    position: relative;
+}
+
+.horizontal-tables {
+    display: flex;
+    animation: scroll-left 15s linear infinite; /* Animação contínua para rolagem */
+}
+
+.horizontal-table {
+    border-collapse: collapse;
+    min-width: 100%; /* Define a largura mínima da tabela para caber no contêiner */
+    background-color: white;
+    flex: 0 0 auto; /* Garante que as tabelas não encolham */
+}
+
+.horizontal-table thead th {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.horizontal-table tbody td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+/* Animação de rolagem contínua */
+.horizontal-tables {
+    animation: scroll-infinite 15s linear infinite;
+  }
+  
+  @keyframes scroll-infinite {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }

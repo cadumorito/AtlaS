@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Navbar Test</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='navbar.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/SENAI_São_Paulo_logo.png" alt="Logo">
+      </div>
+      <div class="redirecionamentos">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#">INÍCIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">DEMONSTRATIVO</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">BUSCAR SALA</a></li>
+        </ul>
+      </div>
+      <div class="icones">
+        <div class="login-icon-wrapper">
+          <a href="{% url 'login' %}">
+            <i class="bi-person"></i>
+            <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+            </svg>
+          </a>
+          <div class="dropdown">
+            <a href="cadastro.html">Cadastrar-se</a>
+            <a href="login.html">Conectar-se</a>
+            <a href="desconectar.html">Desconectar-se</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>

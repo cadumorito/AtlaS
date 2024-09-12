@@ -1,0 +1,164 @@
+main {
+    display: flex; /* display flex para centralizar verticalmente */
+    justify-content: center; /* centralizar verticalmente */
+    flex-direction: column; /* direção da flexbox */
+    align-items: center; /* centralizar verticalmente */
+  }
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.enquadro {
+    display: flex; /* Ativa o flexbox */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    justify-content: flex-start; /* Alinha os itens horizontalmente ao início */
+    gap: 70px;
+}
+
+
+/* From Uiverse.io by vinodjangid07 */ 
+.cardContainer {
+    width: 300px;
+    height: 350px;
+    background-color: rgb(182, 71, 71);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition-duration: .5s;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.878) 0px 15px 28px -14px;
+    border-radius: 40px; /* Adiciona o border-radius ao container */
+  }
+  
+  .profileDiv {
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(24, 24, 24);
+    transition-duration: .5s;
+    color: rgb(182, 71, 71);
+    font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 40px; /* Adiciona o border-radius à profileDiv */
+  }
+  
+  .cardContainer:hover .profileDiv {
+    transform: translateX(-25%) translateY(-20%);
+    transition-duration: .5s;
+  }
+  
+  .infoDiv {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(182, 71, 71);
+    z-index: 1;
+    border-radius: 40px;
+  }
+  
+  .nameDiv {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: rgb(182, 71, 71);
+    font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    gap: 2px;
+    border-radius: 20px;
+  }
+  
+  .name {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+  }
+  
+  .role {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(207, 207, 207);
+    margin-bottom: 20px;
+  }
+  
+  .socialDiv {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(14, 14, 14);
+    gap: 25px;
+  }
+  
+  .infoDiv a {
+    width: 50%;
+  }
+  
+  .socials {
+    width: 100%;
+    fill: rgb(255, 255, 255);
+    transition: transform 0.3s ease; /* Adiciona uma transição suave para o efeito de escala */
+  }
+
+  .socials:hover {
+    width: 100%;
+    transform: scale(1.2)
+  }
+
+  .socials.instagram:hover  {
+    fill: url(#gradient1);
+  }
+
+  
+  .socials.linkedin:hover{
+    fill: rgb(0, 110, 255);
+  }
+  .socials.github:hover{
+    fill: rgb(0, 0, 0);
+  }
+  .socials:hover {
+    width: 100%;
+    transform: scale(1.2)
+  }
+  
+  /* Texto */
+
+  .text {
+    font-size: 80px;
+    text-transform: uppercase;
+    font-family: "Cheesy Fingers DEMO";
+    text-align: center;
+    line-height: 1;
+  }
+  
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .fancy {
+      background-image: url("https://cdn.wallpapersafari.com/80/56/iFbqtN.gif");
+      background-size: 110% auto;
+      font-family: "Cheesy Fingers DEMO";
+      background-position: center;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  }/*# sourceMappingURL=text.css.map */
+  

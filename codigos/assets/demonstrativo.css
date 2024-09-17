@@ -47,7 +47,6 @@ tbody tr:hover {
     transform: scale(1.1);
 }
 
-/* From Uiverse.io by cssbuttons-io */ 
 button {
  position: relative;
  display: inline-block;

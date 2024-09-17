@@ -1,0 +1,73 @@
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column; /* Corrigido para manter a centralização vertical */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    margin-top: 100px;
+  }
+
+  .title {
+    margin-bottom: 100px;
+   }
+
+   button {
+    margin-top: 50px;
+    font-weight: bold;
+    background: linear-gradient(45deg, rgb(185, 42, 42) 0%, rgb(255, 4, 4) 100%);
+    color: white;
+    width: 200px;
+    height: 50px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    font-size: 19px;
+    cursor: pointer;
+    box-shadow: rgba(215, 133, 133, 0.878) 0px 20px 10px -15px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  button:active {
+    transform: scale(0.95);
+    box-shadow: rgba(215, 133, 133, 0.878) 0px 15px 10px -10px;
+  }
+  
+    button:hover {
+        transform: scale(1.1);
+        box-shadow: rgba(215, 133, 133, 0.878) 0px 23px 10px -20px;
+  }
+
+  table {
+    width: 75%;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.568);
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+thead th {
+    background-color: red; /* Define o fundo do cabeçalho como vermelho */
+    color: white; /* Define a cor do texto como branco para contraste */
+}
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Define o fundo das linhas pares */
+}
+tbody tr:hover {
+    background-color: #f1f1f1; /* Define o fundo das linhas ao passar o mouse */
+}
+
+.buttons {
+    display: flex; /* Altere de inline para flex */
+    justify-content: space-between; /* Alinha os itens com espaçamento igual entre eles */
+    width: 75%; /* Ajuste a largura conforme necessário */
+    margin-top: 200px;
+}
+
+.reserva {
+    width: 400px;
+}

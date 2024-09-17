@@ -12,11 +12,6 @@
     <script src='main.js'></script>
 </head>
 <body>
-    <style>
-        body {
-            background-color: #DCDCDC;
-        }
-    </style>
     <nav class="navbar">
         <div class="navbar-container">
           <div class="logo">
@@ -47,37 +42,55 @@
         </div>
       </nav>
       <main>
-        <div class="hero-banner">
-            <div class="hero-banner__title" aria-hidden="true">BEM VINDO</div>
-            <img class="hero-banner__image" src="banner2.jpg">
-            <h1 class="hero-banner__title hero-banner__stroked-title">BEM VINDO</h1>
-        </div>
+        <img class="hero-banner__image" src="banner2.jpg">
         <div class="cronograma">
-            <button id="dateButton" alt="cronograma ">
-                <i>c</i>
-                <i>r</i>
-                <i>o</i>
-                <i>n</i>
-                <i>o</i>
-                <i>g</i>
-                <i>r</i>
-                <i>a</i>
-                <i>m</i>
-                <i>a</i>
-                <i>&nbsp;</i>
-                <i>&nbsp;</i>
-                <i id="day1"></i> <!-- Primeiro dígito do dia -->
-                <i id="day2"></i> <!-- Segundo dígito do dia -->
-                <i>/</i>
-                <i id="month1"></i> <!-- Primeiro dígito do mês -->
-                <i id="month2"></i> <!-- Segundo dígito do mês -->
-                <i>/</i>
-                <i id="year1"></i> <!-- Primeiro dígito do ano -->
-                <i id="year2"></i> <!-- Segundo dígito do ano -->
-                <i id="year3"></i> <!-- Terceiro dígito do ano -->
-                <i id="year4"></i> <!-- Quarto dígito do ano -->
-            </button>
-        
+            <div class="data">
+                <button id="dateButton" alt="cronograma ">
+                    <i>c</i>
+                    <i>r</i>
+                    <i>o</i>
+                    <i>n</i>
+                    <i>o</i>
+                    <i>g</i>
+                    <i>r</i>
+                    <i>a</i>
+                    <i>m</i>
+                    <i>a</i>
+                    <i>&nbsp;</i>
+                    <i>&nbsp;</i>
+                    <i id="day1"></i>
+                    <i id="day2"></i>
+                    <i>/</i>
+                    <i id="month1"></i>
+                    <i id="month2"></i>
+                    <i>/</i>
+                    <i id="year1"></i>
+                    <i id="year2"></i>
+                    <i id="year3"></i>
+                    <i id="year4"></i>
+                </button>
+            </div>
+            
+            <div class="horarios">
+                <button class="learn-more" data-table="0">
+                    <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">07:30-09:45</span>
+                </button>
+                <button class="learn-more" data-table="1">
+                    <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">09:45-11:30</span>
+                </button>
+                <button class="learn-more" data-table="2">
+                    <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">Auditório</span>
+                </button>
+            </div>
             <script>
                 function updateDateDigits() {
                     const now = new Date();
@@ -85,7 +98,6 @@
                     const month = String(now.getMonth() + 1).padStart(2, '0');
                     const year = String(now.getFullYear());
         
-                    // Atualiza os dígitos
                     document.getElementById('day1').textContent = day[0];
                     document.getElementById('day2').textContent = day[1];
                     document.getElementById('month1').textContent = month[0];
@@ -95,12 +107,10 @@
                     document.getElementById('year3').textContent = year[2];
                     document.getElementById('year4').textContent = year[3];
         
-                    // Atualiza o atributo alt do botão
                     const formattedDate = `${day[0]}${day[1]}/${month[0]}${month[1]}/${year}`;
                     document.getElementById('dateButton').setAttribute('alt', `cronograma ${formattedDate}`);
                 }
         
-                // Atualiza a data quando a página é carregada
                 document.addEventListener('DOMContentLoaded', updateDateDigits);
             </script>
         </div>
@@ -115,6 +125,7 @@
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>Idade</th>
+                                <th>Status</th>
                                 <th>Data de Cadastro</th>
                             </tr>
                         </thead>
@@ -124,11 +135,12 @@
                                 <td>João da Silva</td>
                                 <td>joao.silva@example.com</td>
                                 <td>28</td>
+                                <td>Reservado</td>
                                 <td>2024-01-15</td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- Segunda tabela (duplicata) -->
+                    <!-- Segunda tabela -->
                     <table class="horizontal-table">
                         <thead>
                             <tr>
@@ -136,6 +148,7 @@
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>Idade</th>
+                                <th>Status</th>
                                 <th>Data de Cadastro</th>
                             </tr>
                         </thead>
@@ -145,6 +158,30 @@
                                 <td>João da Silva</td>
                                 <td>joao.silva@example.com</td>
                                 <td>28</td>
+                                <td>Livre</td>
+                                <td>2024-01-15</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Terceira tabela -->
+                    <table class="horizontal-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Idade</th>
+                                <th>Status</th>
+                                <th>Data de Cadastro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>João da Silva</td>
+                                <td>joao.silva@example.com</td>
+                                <td>28</td>
+                                <td>Reservado</td>
                                 <td>2024-01-15</td>
                             </tr>
                         </tbody>
@@ -153,7 +190,64 @@
             </div>
         </div>
         <script>
-            
+            document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.horarios .learn-more');
+    const tables = document.querySelectorAll('.horizontal-table');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Verifica se alguma tabela está visível
+            const anyTableVisible = Array.from(tables).some(table => table.style.display === 'table' || table.style.display === '');
+
+            // Remove a classe 'button-active' de todos os botões
+            buttons.forEach(btn => btn.classList.remove('button-active'));
+
+            // Alterna a visibilidade das tabelas e adiciona a classe 'button-active' ao botão clicado
+            tables.forEach(table => {
+                if (anyTableVisible) {
+                    // Se alguma tabela está visível, esconda todas e remova a classe 'button-active' do botão
+                    table.style.display = 'none';
+                } else {
+                    // Caso contrário, mostre todas as tabelas e adicione a classe 'button-active' ao botão clicado
+                    table.style.display = 'table';
+                }
+            });
+
+            // Adiciona a classe 'button-active' ao botão clicado se as tabelas estão visíveis
+            if (!anyTableVisible) {
+                button.classList.add('button-active');
+            }
+
+            // Aplica a cor de fundo para células com o texto "Reservado"
+            highlightReservedCells();
+            highlightFreeCells();
+        });
+    });
+
+    function highlightReservedCells() {
+        const cells = document.querySelectorAll('td');
+        cells.forEach(cell => {
+            if (cell.textContent.trim() === 'Reservado') {
+                cell.classList.add('reserved');
+            } else {
+                cell.classList.remove('reserved');
+            }
+        });
+    }
+
+    function highlightFreeCells() {
+        const cells = document.querySelectorAll('td');
+        cells.forEach(cell => {
+            if (cell.textContent.trim() === 'Livre') {
+                cell.classList.add('free');
+            } else {
+                cell.classList.remove('free');
+            }
+        });
+    }
+});
+
         </script>
       </main>
 </body>
+</html>

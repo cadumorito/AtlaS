@@ -71,3 +71,6 @@ tbody tr:hover {
 .reserva {
     width: 400px;
 }
+button:active {
+    transform: scale(0.95);
+}

@@ -308,3 +308,4 @@ input[type="radio"]{
 #option-4:checked:checked ~ .option-4 span{
   color: #fff;
 }
+

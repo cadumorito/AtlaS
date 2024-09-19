@@ -11,10 +11,16 @@ main {
   }
 
   .title {
-    margin-bottom: 100px;
-   }
+    color: white; /* Cor do texto */
+    font-size: 50px; /* Aumenta a fonte */
+    margin-bottom: 50px;
+    text-shadow: 
+        0 0 5px red, /* Sombra vermelha */
+        0 0 10px red,
+        0 0 15px red;
+}
 
-   button {
+   .button_out {
     margin-top: 50px;
     font-weight: bold;
     background: linear-gradient(45deg, rgb(185, 42, 42) 0%, rgb(255, 4, 4) 100%);
@@ -26,18 +32,18 @@ main {
     border-radius: 10px;
     font-size: 19px;
     cursor: pointer;
-    box-shadow: rgba(215, 133, 133, 0.878) 0px 20px 10px -15px;
+    box-shadow: rgba(0, 0, 0, 0.878) 0px 20px 10px -15px;
     transition: all 0.2s ease-in-out;
   }
 
-  button:active {
+  .button_out:active {
     transform: scale(0.95);
-    box-shadow: rgba(215, 133, 133, 0.878) 0px 15px 10px -10px;
+    box-shadow: rgba(0, 0, 0, 0.878) 0px 15px 10px -10px;
   }
   
-    button:hover {
+    .button_out:hover {
         transform: scale(1.1);
-        box-shadow: rgba(215, 133, 133, 0.878) 0px 23px 10px -20px;
+        box-shadow: rgba(0, 0, 0, 0.878) 0px 23px 10px -20px;
   }
 
   table {
@@ -51,26 +57,32 @@ th, td {
     text-align: left;
 }
 thead th {
-    background-color: red; /* Define o fundo do cabeçalho como vermelho */
+    background-color: #333; /* Define o fundo do cabeçalho como vermelho */
     color: white; /* Define a cor do texto como branco para contraste */
 }
 tbody tr:nth-child(even) {
     background-color: #f9f9f9; /* Define o fundo das linhas pares */
 }
-tbody tr:hover {
-    background-color: #f1f1f1; /* Define o fundo das linhas ao passar o mouse */
+tbody tr:nth-child(odd) {
+    background-color: #e6e1e1; /* Define uma cor de fundo branca para as linhas ímpares */
 }
 
-.buttons {
+
+tbody tr:hover {
+    background-color: #f3adad; /* Define o fundo das linhas ao passar o mouse */
+}
+
+.buttons2 {
     display: flex; /* Altere de inline para flex */
     justify-content: space-between; /* Alinha os itens com espaçamento igual entre eles */
     width: 75%; /* Ajuste a largura conforme necessário */
     margin-top: 200px;
+    margin-bottom: 60px;
 }
 
-.reserva {
+#reserva {
     width: 400px;
 }
-button:active {
+.button_out:active {
     transform: scale(0.95);
 }

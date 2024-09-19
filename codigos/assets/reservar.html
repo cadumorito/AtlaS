@@ -3,19 +3,24 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Cadastro</title>
-    <link rel="icon" href="icon.jpeg" type="image/x-icon">
+    <title>Reservar Sala</title>
+    <link rel="icon" href="web-logo.png" type="image/x-icon">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='reservar.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='navbar.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='cursor.css'>
     <script src='main.js'></script>
 </head>
 <body>
     <style>
-        body {
-            background-color: #DCDCDC;
-        }
+      html, body {
+          margin: 0; /* Certifique-se de que não haja margens */
+          background-image: url('img_oficina.png');
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed; /* Adiciona esta linha para manter a imagem fixa */
+      }
+
     </style>
     <nav class="navbar">
         <div class="navbar-container">
@@ -26,7 +31,7 @@
             <ul class="navbar-nav">
               <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">INÍCIO</a></li>
               <li class="nav-item"><a class="nav-link" href="{% url 'demonstrativo' %}">DEMONSTRATIVO</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'reservar' %}">RESERVAR</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'reservar' %}">RESERVAS</a></li>
             </ul>
           </div>
           <div class="icones">
@@ -327,6 +332,8 @@
                           </button>
                         </div>
                       </article>
+                      </div>
+                      <div class="salas">
                       <article class="card">
                         <img
                           class="card__background"

@@ -3,15 +3,24 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Cadastro</title>
-    <link rel="icon" href="icon.jpeg" type="image/x-icon">
+    <title>Início</title>
+    <link rel="icon" href="web-logo.png" type="image/x-icon">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='navbar.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='cursor.css'>
     <script src='main.js'></script>
 </head>
 <body>
+    <style>
+      html, body {
+          margin: 0; /* Certifique-se de que não haja margens */
+          background-image: url('img_oficina.png');
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed; /* Adiciona esta linha para manter a imagem fixa */
+      }
+      </style>
     <nav class="navbar">
         <div class="navbar-container">
           <div class="logo">
@@ -21,7 +30,7 @@
             <ul class="navbar-nav">
               <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">INÍCIO</a></li>
               <li class="nav-item"><a class="nav-link" href="{% url 'demonstrativo' %}">DEMONSTRATIVO</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'reservar' %}">RESERVAR</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'reservar' %}">RESERVAS</a></li>
             </ul>
           </div>
           <div class="icones">
@@ -70,8 +79,58 @@
                     <i id="year4"></i>
                 </button>
             </div>
-            
-            <div class="horarios">
+        </div>
+        <div class="geral">
+            <table id="visao_geral">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Idade</th>
+                        <th>Data de Cadastro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>João da Silva</td>
+                        <td>joao.silva@example.com</td>
+                        <td>28</td>
+                        <td>2024-01-15</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Maria Oliveira</td>
+                        <td>maria.oliveira@example.com</td>
+                        <td>34</td>
+                        <td>2023-11-20</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Pedro Santos</td>
+                        <td>pedro.santos@example.com</td>
+                        <td>22</td>
+                        <td>2024-03-05</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Ana Costa</td>
+                        <td>ana.costa@example.com</td>
+                        <td>31</td>
+                        <td>2023-12-10</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Lucas Pereira</td>
+                        <td>lucas.pereira@example.com</td>
+                        <td>27</td>
+                        <td>2024-02-28</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="horarios">
                 <button class="learn-more" data-table="0">
                     <span class="circle" aria-hidden="true">
                     <span class="icon arrow"></span>
@@ -90,7 +149,7 @@
                     </span>
                     <span class="button-text">Auditório</span>
                 </button>
-            </div>
+        </div>
             <script>
                 function updateDateDigits() {
                     const now = new Date();
@@ -113,7 +172,6 @@
         
                 document.addEventListener('DOMContentLoaded', updateDateDigits);
             </script>
-        </div>
         <div class="container">
             <div class="scrolling-wrapper">
                 <div class="horizontal-tables">
@@ -193,23 +251,24 @@
             document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.horarios .learn-more');
     const tables = document.querySelectorAll('.horizontal-table');
+    const visaoGeralTable = document.getElementById('visao_geral'); // Referência à tabela visao_geral
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-            // Verifica se alguma tabela está visível
+            // Verifica se alguma tabela além da visao_geral está visível
             const anyTableVisible = Array.from(tables).some(table => table.style.display === 'table' || table.style.display === '');
 
             // Remove a classe 'button-active' de todos os botões
             buttons.forEach(btn => btn.classList.remove('button-active'));
 
-            // Alterna a visibilidade das tabelas e adiciona a classe 'button-active' ao botão clicado
+            // Alterna a visibilidade das tabelas, exceto a visao_geral
             tables.forEach(table => {
-                if (anyTableVisible) {
-                    // Se alguma tabela está visível, esconda todas e remova a classe 'button-active' do botão
-                    table.style.display = 'none';
-                } else {
-                    // Caso contrário, mostre todas as tabelas e adicione a classe 'button-active' ao botão clicado
-                    table.style.display = 'table';
+                if (table !== visaoGeralTable) { // Ignora a tabela visao_geral
+                    if (anyTableVisible) {
+                        table.style.display = 'none';
+                    } else {
+                        table.style.display = 'table';
+                    }
                 }
             });
 
@@ -246,6 +305,7 @@
         });
     }
 });
+
 
         </script>
       </main>

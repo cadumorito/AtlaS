@@ -23,28 +23,48 @@ th, td {
     text-align: left;
 }
 thead th {
-    background-color: red; /* Define o fundo do cabeçalho como vermelho */
+    background-color: #333; /* Define o fundo do cabeçalho como vermelho */
     color: white; /* Define a cor do texto como branco para contraste */
 }
 tbody tr:nth-child(even) {
     background-color: #f9f9f9; /* Define o fundo das linhas pares */
 }
-tbody tr:hover {
-    background-color: #f1f1f1; /* Define o fundo das linhas ao passar o mouse */
+tbody tr:nth-child(odd) {
+    background-color: #e6e1e1; /* Define uma cor de fundo branca para as linhas ímpares */
 }
+
+
+tbody tr:hover {
+    background-color: #f3adad; /* Define o fundo das linhas ao passar o mouse */
+}
+
 .toggle-button {
-    cursor: pointer;
-    color: rgb(0, 0, 0);
+    color: white; /* Cor do texto */
+    font-size: 35px; /* Aumenta a fonte */
+    margin-bottom: 50px;
     text-decoration: underline;
+    cursor: pointer;
     transition: all 0.5s ease; /* Adiciona uma transição suave */
+    text-shadow: 
+        0 0 5px red, /* Sombra vermelha */
+        0 0 10px red,
+        0 0 15px red;
 }
 .toggle-button:hover {
     color: red;
     transform: scale(1.1);
+    text-shadow: 
+    0 0 5px rgb(255, 255, 255), /* Sombra vermelha */
+    0 0 10px rgb(255, 255, 255),
+    0 0 15px rgb(255, 255, 255);
 }
 .toggle-button.active {
     color: red;
     transform: scale(1.1);
+    text-shadow: 
+    0 0 5px rgb(255, 255, 255), /* Sombra vermelha */
+    0 0 10px rgb(255, 255, 255),
+    0 0 15px rgb(255, 255, 255);
 }
 
 button {

@@ -43,8 +43,14 @@ main {
    }
 
    .title {
+    color: white; /* Cor do texto */
+    font-size: 50px; /* Aumenta a fonte */
     margin-bottom: 50px;
-   }
+    text-shadow: 
+        0 0 5px red, /* Sombra vermelha */
+        0 0 10px red,
+        0 0 15px red;
+}
 
    button {
     margin-top: 50px;
@@ -58,16 +64,16 @@ main {
     border-radius: 25px;
     font-size: 19px;
     cursor: pointer;
-    box-shadow: rgba(215, 133, 133, 0.878) 0px 20px 10px -15px;
+    box-shadow: rgba(0, 0, 0, 0.878) 0px 20px 10px -15px;
     transition: all 0.2s ease-in-out;
   }
 
   button:active {
     transform: scale(0.95);
-    box-shadow: rgba(215, 133, 133, 0.878) 0px 15px 10px -10px;
+    box-shadow: rgba(0, 0, 0, 0.878) 0px 15px 10px -10px;
   }
   
     button:hover {
         transform: scale(1.1);
-        box-shadow: rgba(215, 133, 133, 0.878) 0px 23px 10px -20px;
+        box-shadow: rgba(0, 0, 0, 0.878) 0px 23px 10px -20px;
   }

@@ -39,70 +39,82 @@
     <main>
         <h1 class="title">Reservas</h1>
 
-        <!-- Input para seleção de data usando um calendário -->
-        <label for="dataFiltro">Filtrar por Data:</label>
-        <input type="date" id="dataFiltro">
+        <div class="container-filtro">
+          <!-- Input para seleção de data usando um calendário -->
+          <label for="dataFiltro">Filtrar por Data:</label>
+          <input type="date" id="dataFiltro">
 
-        <!-- Combo box para seleção de período -->
-        <label for="periodoFiltro">Filtrar por Período:</label>
-        <select id="periodoFiltro">
-            <option value="">Todos os períodos</option>
-            <option value="Após o intervalo">Após o intervalo</option>
-            <option value="Antes do intervalo">Antes do intervalo</option>
-        </select>
-        <table id="reservasTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Período</th>
-                    <th>Data de Cadastro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>João da Silva</td>
-                    <td>joao.silva@example.com</td>
-                    <td>Após o intervalo</td>
-                    <td>2024-01-15</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Maria Oliveira</td>
-                    <td>maria.oliveira@example.com</td>
-                    <td>Após o intervalo</td>
-                    <td>2023-11-20</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Pedro Santos</td>
-                    <td>pedro.santos@example.com</td>
-                    <td>Antes do intervalo</td>
-                    <td>2024-03-05</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Ana Costa</td>
-                    <td>ana.costa@example.com</td>
-                    <td>Antes do intervalo</td>
-                    <td>2023-12-10</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Lucas Pereira</td>
-                    <td>lucas.pereira@example.com</td>
-                    <td>Antes do intervalo</td>
-                    <td>2024-02-28</td>
-                </tr>
-            </tbody>
-        </table>
+          <!-- Combo box para seleção de período -->
+          <label for="periodoFiltro">Filtrar por Período:</label>
+          <select id="periodoFiltro">
+              <option value="">Todos os períodos</option>
+              <option value="Após o intervalo">Após o intervalo</option>
+              <option value="Antes do intervalo">Antes do intervalo</option>
+          </select>
+        </div>
+        <div class="table-container">
+          <table id="reservasTable">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Nome</th>
+                      <th>E-mail</th>
+                      <th>Período</th>
+                      <th>Data de Cadastro</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>João da Silva</td>
+                      <td>joao.silva@example.com</td>
+                      <td>Após o intervalo</td>
+                      <td>2024-01-15</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>Maria Oliveira</td>
+                      <td>maria.oliveira@example.com</td>
+                      <td>Após o intervalo</td>
+                      <td>2023-11-20</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>Pedro Santos</td>
+                      <td>pedro.santos@example.com</td>
+                      <td>Antes do intervalo</td>
+                      <td>2024-03-05</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>Ana Costa</td>
+                      <td>ana.costa@example.com</td>
+                      <td>Antes do intervalo</td>
+                      <td>2023-12-10</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>Lucas Pereira</td>
+                      <td>lucas.pereira@example.com</td>
+                      <td>Antes do intervalo</td>
+                      <td>2024-02-28</td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
         <div class="buttons2">
           <button class="button_out">Gerar PDF</button>
-          <button class="button_out" id="reserva">Fazer reserva</button>
+          <button class="button_out" id="reserva" onclick="scrollToDiv()">Fazer reserva</button>
           <button class="button_out">Relatório</button>
         </div>
+        <script>
+          function scrollToDiv() {
+              const elements = document.getElementsByClassName('salas');
+              if (elements.length > 0) {
+                  elements[0].scrollIntoView({ behavior: 'smooth' }); // Acessa o primeiro elemento com a classe 'salas'
+              }
+          }
+        </script>
         <div class="salas">
           <article class="card" id="auditorio">
               <img
@@ -633,6 +645,9 @@
             const parts = dateString.split("-");
             return parts[0] + "-" + parts[1] + "-" + parts[2]; // YYYY-MM-DD
         }
+
+        
     </script>
+    
 </body>
 </html>

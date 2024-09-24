@@ -25,7 +25,7 @@ main {
   }
   
   form {
-    width: 400px;
+    width: 450px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -75,6 +75,7 @@ main {
     border-inline: 2px solid transparent;
     box-sizing: border-box;
     margin-bottom: 20px;
+    font-size: large;
   }
   
   .form-cadastro .input:focus {
@@ -179,7 +180,7 @@ main {
   }
   
   .custum-file-upload .text span {
-    font-size: 13px;
+    font-size: 16px;
     color: #f13c3c;
   }
   
@@ -309,3 +310,7 @@ input[type="radio"]{
   color: #fff;
 }
 
+label{
+  padding-left: 3px;
+  padding-right: 3px;
+}

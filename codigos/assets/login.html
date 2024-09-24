@@ -3,8 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <link rel="icon" href="web-logo.png" type="image/x-icon">
-    <title>Login</title>
+    <title>Conectar</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='login.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='navbar.css'>
@@ -19,42 +18,42 @@
     background-size: cover; /* Ajusta a imagem para cobrir todo o corpo */
     background-position: center center; /* Centraliza a imagem */
     background-repeat: no-repeat; /* Evita a repetição da imagem */
-    background-attachment: fixed; /* Adiciona esta linha para manter a imagem fixa */
 }
 
   </style>
-    <nav class="navbar">
-        <div class="navbar-container">
-          <div class="logo">
-            <img src="logo-branca.png" alt="Logo">
-          </div>
-          <div class="redirecionamentos">
-            <ul class="navbar-nav">
-              <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">INÍCIO</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'demonstrativo' %}">DEMONSTRATIVO</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'reservar' %}">RESERVAS</a></li>
-            </ul>
-          </div>
-          <div class="icones">
-            <div class="login-icon-wrapper">
-              <a href="{% url 'login' %}">
-                <i class="bi-person"></i>
-                <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
-                </svg>
-              </a>
-              <div class="dropdown">
-                <a href="{% url 'cadastro' %}">Cadastrar-se</a>
-                <a href="{% url 'login' %}">Conectar-se</a>
-                <a href="{% url 'logout' %}">Desconectar-se</a>
-              </div>
-            </div>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <img src="logo-branca.png" alt="Logo">
+      </div>
+      <div class="redirecionamentos">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">INÍCIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="demonstrativo.html">DEMONSTRATIVO</a></li>
+          <li class="nav-item"><a class="nav-link" href="reservas.html">RESERVAS</a></li>
+        </ul>
+      </div>
+      <div class="icones">
+        <div class="login-icon-wrapper">
+          <a href="{% url 'login' %}">
+            <i class="bi-person"></i>
+            <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+            </svg>
+          </a>
+          <div class="dropdown">
+            <a href="cadastro.html">Cadastrar-se</a>
+            <a href="login.html">Conectar-se</a>
+            <a href="login.html">Desconectar-se</a>
           </div>
         </div>
-      </nav>
+      </div>
+    </div>
+  </nav>
     <main>
       <div class="container">
         <div class="heading">
+          <img id="logo_red" src="logo-red.png">
           <span>Conecte-se</span>
           <span id="error-message" class="error-message" style="font-size: 15px; color: red; text-align: center;"></span>
           <span id="success-message" class="success-message" style="font-size: 15px; color: green; text-align: center;"></span>

@@ -139,18 +139,18 @@ button:hover i:nth-child(10) {
 .container {
     width: 100%;
     max-width: 1200px; /* Define a largura máxima da área visível */
-    overflow: hidden; /* Esconde o conteúdo que ultrapassa o contêiner */
+    overflow-x: hidden; /* Esconde o conteúdo que ultrapassa o contêiner na horizontal */
 }
 
 .scrolling-wrapper {
     overflow: hidden; /* Esconde as partes não visíveis */
-    white-space: nowrap; /* Faz com que os elementos sejam exibidos em linha */
+    white-space: normal; /* Permite que os elementos se alinhem corretamente em múltiplas linhas */
     position: relative;
 }
 
 .horizontal-tables {
     display: flex;
-    width: 200%; /* Garantir que as tabelas duplicadas se alinhem corretamente */
+    width: 100%; /* Garante que as tabelas se alinhem corretamente sem rolagem horizontal */
     animation: scroll-infinite 60s linear infinite; /* Duração maior para suavizar a rotação */
 }
 
@@ -161,12 +161,13 @@ button:hover i:nth-child(10) {
 
 .horizontal-table {
     border-collapse: collapse;
-    min-width: 100%; /* Define a largura mínima da tabela para caber no contêiner */
+    width: 100%; /* Ajusta a largura da tabela ao tamanho do contêiner */
     background-color: white;
     flex: 0 0 auto; /* Garante que as tabelas não encolham */
     display: none;
     margin-bottom: 70px;
 }
+
 
 .horizontal-table thead th {
     background-color: #333;
@@ -178,15 +179,6 @@ button:hover i:nth-child(10) {
 .horizontal-table tbody td {
     border: 1px solid #ddd;
     padding: 10px;
-}
-
-@keyframes scroll-infinite {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-150%);
-    }
 }
 
 button.learn-more {
@@ -203,8 +195,8 @@ button.learn-more {
     padding: 0;
     font-size: inherit;
     font-family: inherit;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     box-shadow: none !important;
 }
 
@@ -262,6 +254,9 @@ button.learn-more .button-text {
     line-height: 1.6;
     text-align: center;
     text-transform: uppercase;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
 }
 
 button.learn-more:hover .circle {
@@ -309,8 +304,8 @@ button.learn-more.button-active .button-text {
 
 .geral {
     width: 80%;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 40px;
+    margin-bottom: 70px;
     display: flex;
 }
 #visao_geral {
@@ -340,4 +335,42 @@ button.learn-more.button-active .button-text {
 
 #visao_geral tbody tr:hover {
     background-color: #f3adad; /* Fundo das linhas ao passar o mouse */
+}
+.horarios {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    flex-wrap: wrap; /* Permite que os botões quebrem linha, se necessário */
+    gap: 10px; /* Adiciona um pequeno espaço entre os botões */
+    padding: 20px; /* Adiciona um pouco de espaço em torno dos botões */
+    width: 80%;
+}
+
+.horarios .learn-more {
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 8px 12px; /* Tamanho do botão */
+    font-size: 12px; /* Tamanho da fonte */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Efeito de transição ao passar o mouse */
+}
+
+.button-text {
+    margin-left: 5px; /* Pequeno espaço entre o ícone e o texto */
+}
+
+.horarios .circle {
+    width: 15px; /* Dimensão do ícone */
+    height: 15px;
+}
+
+.button-active {
+    background-color: #333; /* Cor do botão ativo */
+}
+
+@media (max-width: 768px) {
+    .horarios .learn-more {
+        padding: 8px 12px; /* Tamanho reduzido dos botões para telas menores */
+        font-size: 12px;
+    }
 }

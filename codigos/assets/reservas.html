@@ -22,20 +22,35 @@
           background-attachment: fixed; 
       }
     </style>
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="logo">
-                <img src="logo-branca.png" alt="Logo">
-            </div>
-            <div class="redirecionamentos">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#home">INÍCIO</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#reservar">RESERVAR</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#reservas">RESERVAS</a></li>
-                </ul>
-            </div>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <img src="logo-branca.png" alt="Logo">
+      </div>
+      <div class="redirecionamentos">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">INÍCIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="demonstrativo.html">DEMONSTRATIVO</a></li>
+          <li class="nav-item"><a class="nav-link" href="reservas.html">RESERVAS</a></li>
+        </ul>
+      </div>
+      <div class="icones">
+        <div class="login-icon-wrapper">
+          <a href="{% url 'login' %}">
+            <i class="bi-person"></i>
+            <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+            </svg>
+          </a>
+          <div class="dropdown">
+            <a href="cadastro.html">Cadastrar-se</a>
+            <a href="login.html">Conectar-se</a>
+            <a href="login.html">Desconectar-se</a>
+          </div>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
     <main>
         <h1 class="title">Reservas</h1>
 
@@ -45,6 +60,13 @@
           <input type="date" id="dataFiltro">
 
           <!-- Combo box para seleção de período -->
+          <label for="turnoFiltro">Filtrar por Turno:</label>
+          <select id="turnoFiltro">
+              <option value="">Todos os turnos</option>
+              <option value="Manhã">Manhã</option>
+              <option value="Tarde">Tarde</option>
+          </select>
+
           <label for="periodoFiltro">Filtrar por Período:</label>
           <select id="periodoFiltro">
               <option value="">Todos os períodos</option>
@@ -57,8 +79,8 @@
               <thead>
                   <tr>
                       <th>ID</th>
-                      <th>Nome</th>
-                      <th>E-mail</th>
+                      <th>Sala</th>
+                      <th>Turno</th>
                       <th>Período</th>
                       <th>Data de Cadastro</th>
                   </tr>
@@ -66,36 +88,36 @@
               <tbody>
                   <tr>
                       <td>1</td>
-                      <td>João da Silva</td>
-                      <td>joao.silva@example.com</td>
+                      <td>Auditório</td>
+                      <td>Manhã</td>
                       <td>Após o intervalo</td>
                       <td>2024-01-15</td>
                   </tr>
                   <tr>
                       <td>2</td>
-                      <td>Maria Oliveira</td>
-                      <td>maria.oliveira@example.com</td>
+                      <td>Auditório</td>
+                      <td>Tarde</td>
                       <td>Após o intervalo</td>
                       <td>2023-11-20</td>
                   </tr>
                   <tr>
                       <td>3</td>
-                      <td>Pedro Santos</td>
-                      <td>pedro.santos@example.com</td>
+                      <td>C3</td>
+                      <td>Manha</td>
                       <td>Antes do intervalo</td>
                       <td>2024-03-05</td>
                   </tr>
                   <tr>
                       <td>4</td>
-                      <td>Ana Costa</td>
-                      <td>ana.costa@example.com</td>
+                      <td>C3</td>
+                      <td>Tarde</td>
                       <td>Antes do intervalo</td>
                       <td>2023-12-10</td>
                   </tr>
                   <tr>
                       <td>5</td>
-                      <td>Lucas Pereira</td>
-                      <td>lucas.pereira@example.com</td>
+                      <td>C1</td>
+                      <td>Tarde</td>
                       <td>Antes do intervalo</td>
                       <td>2024-02-28</td>
                   </tr>
@@ -120,7 +142,7 @@
               <img
                 class="card__background"
                 src="BLC_SALA_C5.jpg"
-                alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                alt="Planta da sala específica"
                 width="1920"
                 height="2193"
               />
@@ -128,11 +150,10 @@
                 <div class="card__content--container | flow">
                   <h2 class="card__title">AUDITÓRIO</h2>
                   <p class="card__description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                    labore laudantium deserunt fugiat numquam.
+                    Espaço amplo e equipado para palestras, workshops e apresentações. Ideal para eventos!
                   </p>
                 </div>
-                <button class="shadow__btn">
+                <button class="shadow__btn" onclick="reservarSala('BLC_SALA_C5.jpg')">
                     RESERVAR
                 </button>
               </div>
@@ -141,7 +162,7 @@
               <img
                 class="card__background"
                 src="BLC_SALA_C5.jpg"
-                alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                alt="Planta da sala específica"
                 width="1920"
                 height="2193"
               />
@@ -149,8 +170,27 @@
                 <div class="card__content--container | flow">
                   <h2 class="card__title">BIBLIOTECA</h2>
                   <p class="card__description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                    labore laudantium deserunt fugiat numquam.
+                    Local tranquilo e organizado, perfeito para estudo, leitura e pesquisa. Recursos variados disponíveis!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('icon.jpeg')">
+                    RESERVAR
+                </button>
+              </div>
+            </article>
+            <article class="card" id="automobilistica">
+              <img
+                class="card__background"
+                src="BLC_SALA_C5.jpg"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">AUTOMOBILÍSTICA</h2>
+                  <p class="card__description">
+                    Espaço especializado para o estudo de manutenção e de reparos de veículos.
                   </p>
                 </div>
                 <button class="shadow__btn">
@@ -158,41 +198,19 @@
                 </button>
               </div>
             </article>
-            <article class="card" id="automresidencial">
+            <article class="card" id="costura">
               <img
                 class="card__background"
                 src="BLC_SALA_C5.jpg"
-                alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                alt="Planta da sala específica"
                 width="1920"
                 height="2193"
               />
               <div class="card__content | flow">
                 <div class="card__content--container | flow">
-                  <h2 class="card__title">SALA C3</h2>
+                  <h2 class="card__title">OFIC. COSTURA</h2>
                   <p class="card__description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                    labore laudantium deserunt fugiat numquam.
-                  </p>
-                </div>
-                <button class="shadow__btn">
-                    RESERVAR
-                </button>
-              </div>
-            </article>
-            <article class="card" id="admin">
-              <img
-                class="card__background"
-                src="BLC_SALA_C5.jpg"
-                alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
-                width="1920"
-                height="2193"
-              />
-              <div class="card__content | flow">
-                <div class="card__content--container | flow">
-                  <h2 class="card__title">LAB. ADMIN</h2>
-                  <p class="card__description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                    labore laudantium deserunt fugiat numquam.
+                    Ambiente criativo para aprender e desenvolver técnicas de costura. Projetos personalizados e práticas!
                   </p>
                 </div>
                 <button class="shadow__btn">
@@ -202,11 +220,93 @@
             </article>
           </div>
           <div class="salas">
+            <article class="card" id="eletrica1">
+                <img
+                  class="card__background"
+                  src="BLC_SALA_C5.jpg"
+                  alt="Planta da sala específica"
+                  width="1920"
+                  height="2193"
+                />
+                <div class="card__content | flow">
+                  <div class="card__content--container | flow">
+                    <h2 class="card__title">ELÉTRICA 1</h2>
+                    <p class="card__description">
+                      Espaço para aprendizado sobre circuitos e sistemas elétricos. Focado em práticas seguras e eficientes!
+                    </p>
+                  </div>
+                  <button class="shadow__btn">
+                      RESERVAR
+                  </button>
+                </div>
+              </article>
+              <article class="card" id="eletrica2">
+                <img
+                  class="card__background"
+                  src="BLC_SALA_C5.jpg"
+                  alt="Planta da sala específica"
+                  width="1920"
+                  height="2193"
+                />
+                <div class="card__content | flow">
+                  <div class="card__content--container | flow">
+                    <h2 class="card__title">ELÉTRICA 2</h2>
+                    <p class="card__description">
+                      Espaço para aprendizado sobre circuitos e sistemas elétricos. Focado em práticas seguras e eficientes!
+                    </p>
+                  </div>
+                  <button class="shadow__btn">
+                      RESERVAR
+                  </button>
+                </div>
+              </article>
+              <article class="card" id="solda">
+                <img
+                  class="card__background"
+                  src="BLC_SALA_C5.jpg"
+                  alt="Planta da sala específica"
+                  width="1920"
+                  height="2193"
+                />
+                <div class="card__content | flow">
+                  <div class="card__content--container | flow">
+                    <h2 class="card__title">SOLDA</h2>
+                    <p class="card__description">
+                      Espaço seguro e equipado para aprender técnicas de soldagem. Ideal para projetos metálicos!
+                    </p>
+                  </div>
+                  <button class="shadow__btn">
+                      RESERVAR
+                  </button>
+                </div>
+              </article>
+              <article class="card" id="usinagem">
+                <img
+                  class="card__background"
+                  src="BLC_SALA_C5.jpg"
+                  alt="Planta da sala específica"
+                  width="1920"
+                  height="2193"
+                />
+                <div class="card__content | flow">
+                  <div class="card__content--container | flow">
+                    <h2 class="card__title">USINAGEM</h2>
+                    <p class="card__description">
+                      Área técnica para corte e modelagem de metais. Ideal para criar peças precisas e personalizadas!
+                    </p>
+                  </div>
+                  <button class="shadow__btn">
+                      RESERVAR
+                  </button>
+                </div>
+              </article>
+            </div>
+          <div class="salas">
             <article class="card" id="c1">
                 <img
                   class="card__background"
                   src="BLC_SALA_C5.jpg"
-                  alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                  alt="Planta da sala específica"
                   width="1920"
                   height="2193"
                 />
@@ -214,8 +314,7 @@
                   <div class="card__content--container | flow">
                     <h2 class="card__title">SALA C1</h2>
                     <p class="card__description">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                      labore laudantium deserunt fugiat numquam.
+                      Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                     </p>
                   </div>
                   <button class="shadow__btn">
@@ -227,7 +326,7 @@
                 <img
                   class="card__background"
                   src="BLC_SALA_C5.jpg"
-                  alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                  alt="Planta da sala específica"
                   width="1920"
                   height="2193"
                 />
@@ -235,8 +334,7 @@
                   <div class="card__content--container | flow">
                     <h2 class="card__title">SALA C2</h2>
                     <p class="card__description">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                      labore laudantium deserunt fugiat numquam.
+                      Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                     </p>
                   </div>
                   <button class="shadow__btn">
@@ -248,7 +346,7 @@
                 <img
                   class="card__background"
                   src="BLC_SALA_C5.jpg"
-                  alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                  alt="Planta da sala específica"
                   width="1920"
                   height="2193"
                 />
@@ -256,8 +354,7 @@
                   <div class="card__content--container | flow">
                     <h2 class="card__title">SALA C3</h2>
                     <p class="card__description">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                      labore laudantium deserunt fugiat numquam.
+                      Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                     </p>
                   </div>
                   <button class="shadow__btn">
@@ -269,7 +366,7 @@
                 <img
                   class="card__background"
                   src="BLC_SALA_C5.jpg"
-                  alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                  alt="Planta da sala específica"
                   width="1920"
                   height="2193"
                 />
@@ -277,8 +374,7 @@
                   <div class="card__content--container | flow">
                     <h2 class="card__title">LAB. ADMIN</h2>
                     <p class="card__description">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                      labore laudantium deserunt fugiat numquam.
+                      Espaço dedicado à gestão e organização de projetos. Focado em estratégias e eficiência operacional!
                     </p>
                   </div>
                   <button class="shadow__btn">
@@ -292,7 +388,7 @@
                   <img
                     class="card__background"
                     src="BLC_SALA_C5.jpg"
-                    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                    alt="Planta da sala específica"
                     width="1920"
                     height="2193"
                   />
@@ -300,8 +396,7 @@
                     <div class="card__content--container | flow">
                       <h2 class="card__title">SALA C5</h2>
                       <p class="card__description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                        labore laudantium deserunt fugiat numquam.
+                        Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                       </p>
                     </div>
                     <button class="shadow__btn">
@@ -313,7 +408,7 @@
                   <img
                     class="card__background"
                     src="BLC_SALA_C5.jpg"
-                    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                    alt="Planta da sala específica"
                     width="1920"
                     height="2193"
                   />
@@ -321,8 +416,7 @@
                     <div class="card__content--container | flow">
                       <h2 class="card__title">LAB. CAD</h2>
                       <p class="card__description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                        labore laudantium deserunt fugiat numquam.
+                        Ambiente dedicado ao design e modelagem 3D de projetos. Ideal para criar e desenvolver ideias inovadoras!
                       </p>
                     </div>
                     <button class="shadow__btn">
@@ -334,7 +428,7 @@
                   <img
                     class="card__background"
                     src="BLC_SALA_C5.jpg"
-                    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                    alt="Planta da sala específica"
                     width="1920"
                     height="2193"
                   />
@@ -342,8 +436,7 @@
                     <div class="card__content--container | flow">
                       <h2 class="card__title">LAB. CAM</h2>
                       <p class="card__description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                        labore laudantium deserunt fugiat numquam.
+                        Espaço tecnológico para produção automatizada de peças. Integra design e fabricação com precisão!
                       </p>
                     </div>
                     <button class="shadow__btn">
@@ -355,7 +448,7 @@
                   <img
                     class="card__background"
                     src="BLC_SALA_C5.jpg"
-                    alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                    alt="Planta da sala específica"
                     width="1920"
                     height="2193"
                   />
@@ -363,8 +456,7 @@
                     <div class="card__content--container | flow">
                       <h2 class="card__title">SALA TI1</h2>
                       <p class="card__description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                        labore laudantium deserunt fugiat numquam.
+                        Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                       </p>
                     </div>
                     <button class="shadow__btn">
@@ -378,7 +470,7 @@
                       <img
                         class="card__background"
                         src="BLC_SALA_C5.jpg"
-                        alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                        alt="Planta da sala específica"
                         width="1920"
                         height="2193"
                       />
@@ -386,8 +478,7 @@
                         <div class="card__content--container | flow">
                           <h2 class="card__title">SALA TI2</h2>
                           <p class="card__description">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                            labore laudantium deserunt fugiat numquam.
+                            Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                           </p>
                         </div>
                         <button class="shadow__btn">
@@ -399,7 +490,7 @@
                       <img
                         class="card__background"
                         src="BLC_SALA_C5.jpg"
-                        alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                        alt="Planta da sala específica"
                         width="1920"
                         height="2193"
                       />
@@ -407,8 +498,7 @@
                         <div class="card__content--container | flow">
                           <h2 class="card__title">SALA TI3</h2>
                           <p class="card__description">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                            labore laudantium deserunt fugiat numquam.
+                            Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                           </p>
                         </div>
                         <button class="shadow__btn">
@@ -420,7 +510,7 @@
                       <img
                         class="card__background"
                         src="BLC_SALA_C5.jpg"
-                        alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                        alt="Planta da sala específica"
                         width="1920"
                         height="2193"
                       />
@@ -428,8 +518,7 @@
                         <div class="card__content--container | flow">
                           <h2 class="card__title">SALA TI4</h2>
                           <p class="card__description">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                            labore laudantium deserunt fugiat numquam.
+                            Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                           </p>
                         </div>
                         <button class="shadow__btn">
@@ -441,7 +530,7 @@
                       <img
                         class="card__background"
                         src="BLC_SALA_C5.jpg"
-                        alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                        alt="Planta da sala específica"
                         width="1920"
                         height="2193"
                       />
@@ -449,8 +538,7 @@
                         <div class="card__content--container | flow">
                           <h2 class="card__title">SALA HIDR</h2>
                           <p class="card__description">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                            labore laudantium deserunt fugiat numquam.
+                            Espaço voltado para estudos e práticas em hidráulica. Ideal para experimentos e simulações de fluidos!
                           </p>
                         </div>
                         <button class="shadow__btn">
@@ -464,7 +552,7 @@
                           <img
                             class="card__background"
                             src="BLC_SALA_C5.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                            alt="Planta da sala específica"
                             width="1920"
                             height="2193"
                           />
@@ -472,8 +560,7 @@
                             <div class="card__content--container | flow">
                               <h2 class="card__title">SALA CLP</h2>
                               <p class="card__description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                                labore laudantium deserunt fugiat numquam.
+                                Ambiente para aprendizado em controle lógico programável. Focado em automação industrial e práticas técnicas!
                               </p>
                             </div>
                             <button class="shadow__btn">
@@ -485,7 +572,7 @@
                           <img
                             class="card__background"
                             src="BLC_SALA_C5.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                            alt="Planta da sala específica"
                             width="1920"
                             height="2193"
                           />
@@ -493,8 +580,7 @@
                             <div class="card__content--container | flow">
                               <h2 class="card__title">ELETROELE.</h2>
                               <p class="card__description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                                labore laudantium deserunt fugiat numquam.
+                                Espaço para estudo e experimentação em circuitos elétricos e eletrônicos. Ideal para prática e inovação!
                               </p>
                             </div>
                             <button class="shadow__btn">
@@ -506,7 +592,7 @@
                           <img
                             class="card__background"
                             src="BLC_SALA_C5.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                            alt="Planta da sala específica"
                             width="1920"
                             height="2193"
                           />
@@ -514,8 +600,7 @@
                             <div class="card__content--container | flow">
                               <h2 class="card__title">MÁQ/COM</h2>
                               <p class="card__description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                                labore laudantium deserunt fugiat numquam.
+                                Espaço dedicado a máquinas e comandos. Focado em automação e controle de processos industriais!
                               </p>
                             </div>
                             <button class="shadow__btn">
@@ -527,7 +612,7 @@
                           <img
                             class="card__background"
                             src="BLC_SALA_C5.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                            alt="Planta da sala específica"
                             width="1920"
                             height="2193"
                           />
@@ -535,8 +620,7 @@
                             <div class="card__content--container | flow">
                               <h2 class="card__title">OF. ELET 1</h2>
                               <p class="card__description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                                labore laudantium deserunt fugiat numquam.
+                                Ambiente prático para aprendizado sobre instalações e manutenção elétrica. Segurança e eficiência em foco!
                               </p>
                             </div>
                             <button class="shadow__btn">
@@ -550,7 +634,7 @@
                           <img
                             class="card__background"
                             src="BLC_SALA_C5.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                            alt="Planta da sala específica"
                             width="1920"
                             height="2193"
                           />
@@ -558,8 +642,7 @@
                             <div class="card__content--container | flow">
                               <h2 class="card__title">OF. ELET 2</h2>
                               <p class="card__description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                                labore laudantium deserunt fugiat numquam.
+                                Ambiente prático para aprendizado sobre instalações e manutenção elétrica. Segurança e eficiência em foco!
                               </p>
                             </div>
                             <button class="shadow__btn">
@@ -571,7 +654,7 @@
                           <img
                             class="card__background"
                             src="BLC_SALA_C5.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                            alt="Planta da sala específica"
                             width="1920"
                             height="2193"
                           />
@@ -579,8 +662,7 @@
                             <div class="card__content--container | flow">
                               <h2 class="card__title">AUTOMAÇÃO</h2>
                               <p class="card__description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                                labore laudantium deserunt fugiat numquam.
+                                Espaço voltado para o estudo e aplicação de sistemas automatizados,  como o uso da Alexa.
                               </p>
                             </div>
                             <button class="shadow__btn">
@@ -592,7 +674,7 @@
                           <img
                             class="card__background"
                             src="BLC_SALA_C5.jpg"
-                            alt="Photo of Cartagena's cathedral at the background and some colonial style houses"
+                            alt="Planta da sala específica"
                             width="1920"
                             height="2193"
                           />
@@ -600,8 +682,27 @@
                             <div class="card__content--container | flow">
                               <h2 class="card__title">METROLOGIA</h2>
                               <p class="card__description">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum in
-                                labore laudantium deserunt fugiat numquam.
+                                Ambiente dedicado à medição e controle de precisão. Essencial para garantir qualidade e conformidade em processos!
+                              </p>
+                            </div>
+                            <button class="shadow__btn">
+                                RESERVAR
+                            </button>
+                          </div>
+                        </article>
+                        <article class="card" id="tiredes">
+                          <img
+                            class="card__background"
+                            src="BLC_SALA_C5.jpg"
+                            alt="Planta da sala específica"
+                            width="1920"
+                            height="2193"
+                          />
+                          <div class="card__content | flow">
+                            <div class="card__content--container | flow">
+                              <h2 class="card__title">LAB. TI REDES</h2>
+                              <p class="card__description">
+                                Espaço para estudo e prática em redes de computadores. Focado em conectividade e gestão de sistemas!
                               </p>
                             </div>
                             <button class="shadow__btn">
@@ -648,6 +749,11 @@
 
         
     </script>
-    
+    <script>
+      function reservarSala(imageSrc) {
+          // Redireciona para formulario.html com a imagem como parâmetro
+          window.location.href = 'formulario.html?image=' + encodeURIComponent(imageSrc);
+      }
+  </script>
 </body>
 </html>

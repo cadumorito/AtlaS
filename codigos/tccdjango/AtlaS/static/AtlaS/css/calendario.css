@@ -1,0 +1,53 @@
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colunas */
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.day {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    text-align: center;
+    cursor: pointer;
+}
+
+.day:hover {
+    background-color: #f0f0f0;
+}
+
+.selected {
+    background-color: rgb(55, 113, 221); /* Cor azul para o dia selecionado */
+    color: white;
+}
+
+.booked {
+    background-color: red; /* Cor vermelha para dias reservados */
+    color: white;
+    cursor: not-allowed;
+}
+
+.arrow-button {
+    background: NONE;
+    border: none;
+    font-size: 35px;
+    cursor: pointer;
+    color: red;
+}
+
+#monthDisplayManhaAntes, #monthDisplayManhaApos, #monthDisplayTardeAntes, #monthDisplayTardeApos {
+    font-size: 18px;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.ano-mes {
+    display: flex;
+    justify-content: center; /* Centraliza os elementos horizontalmente */
+    align-items: center; /* Centraliza os elementos verticalmente */
+    gap: 20px; /* Espaçamento entre os botões e o texto */
+    margin: 20px 0; /* Espaçamento superior e inferior */
+}

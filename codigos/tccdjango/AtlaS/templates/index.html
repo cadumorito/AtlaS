@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Início</title>
+    <link rel="icon" href="web-logo.png" type="image/x-icon">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/index.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/navbar.css' %}">
+    <script src='main.js'></script>
+</head>
+<body>
+    <style>
+      html, body {
+          margin: 0; /* Certifique-se de que não haja margens */
+          background-image: url("{% static 'AtlaS/images/img_oficina.png' %}");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed; /* Adiciona esta linha para manter a imagem fixa */
+      }
+      </style>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <img src="{% static 'AtlaS/images/logo-branca.png' %}" alt="Logo">
+      </div>
+      <div class="redirecionamentos">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">INÍCIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'demonstrativo' %}">DEMONSTRATIVO</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reservas' %}">RESERVAS</a></li>
+        </ul>
+      </div>
+      <div class="icones">
+        <div class="login-icon-wrapper">
+          <a>
+            <i class="bi-person"></i>
+            <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+            </svg>
+          </a>
+          <div class="dropdown">
+            <a href="{% url 'minhas_reservas' %}">Minhas Reservas</a>
+            <a href="{% url 'cadastro' %}">Cadastrar-se</a>
+            <a href="{% url 'login' %}">Conectar-se</a>
+            <a href="{% url 'login' %}">Desconectar-se</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+      <main>
+        <img class="hero-banner__image" src="{% static 'AtlaS/images/banner2.jpg' %}">
+        <div class="cronograma">
+            <div class="data">
+                <button id="dateButton" alt="cronograma ">
+                    <i>c</i>
+                    <i>r</i>
+                    <i>o</i>
+                    <i>n</i>
+                    <i>o</i>
+                    <i>g</i>
+                    <i>r</i>
+                    <i>a</i>
+                    <i>m</i>
+                    <i>a</i>
+                    <i>&nbsp;</i>
+                    <i>&nbsp;</i>
+                    <i id="day1"></i>
+                    <i id="day2"></i>
+                    <i>/</i>
+                    <i id="month1"></i>
+                    <i id="month2"></i>
+                    <i>/</i>
+                    <i id="year1"></i>
+                    <i id="year2"></i>
+                    <i id="year3"></i>
+                    <i id="year4"></i>
+                </button>
+            </div>
+            <script>
+                function updateDateDigits() {
+                    const now = new Date();
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = String(now.getFullYear());
+        
+                    document.getElementById('day1').textContent = day[0];
+                    document.getElementById('day2').textContent = day[1];
+                    document.getElementById('month1').textContent = month[0];
+                    document.getElementById('month2').textContent = month[1];
+                    document.getElementById('year1').textContent = year[0];
+                    document.getElementById('year2').textContent = year[1];
+                    document.getElementById('year3').textContent = year[2];
+                    document.getElementById('year4').textContent = year[3];
+        
+                    const formattedDate = `${day[0]}${day[1]}/${month[0]}${month[1]}/${year}`;
+                    document.getElementById('dateButton').setAttribute('alt', `cronograma ${formattedDate}`);
+                }
+        
+                document.addEventListener('DOMContentLoaded', updateDateDigits);
+            </script>
+        </div>
+        <div class="geral">
+            <table id="visao_geral">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Sala</th>
+                        <th>Turno</th>
+                        <th>Período</th>
+                        <th>Data de Cadastro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Auditório</td>
+                        <td>Manhã</td>
+                        <td>Após o intervalo</td>
+                        <td>2024-01-15</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Auditório</td>
+                        <td>Tarde</td>
+                        <td>Após o intervalo</td>
+                        <td>2023-11-20</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>C3</td>
+                        <td>Manha</td>
+                        <td>Antes do intervalo</td>
+                        <td>2024-03-05</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>C3</td>
+                        <td>Tarde</td>
+                        <td>Antes do intervalo</td>
+                        <td>2023-12-10</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>C1</td>
+                        <td>Tarde</td>
+                        <td>Antes do intervalo</td>
+                        <td>2024-02-28</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Botões das Salas -->
+        <div class="horarios">
+            <!-- Gerando botões dinamicamente com os nomes das salas -->
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const horariosContainer = document.querySelector('.horarios');
+                    const nomesSalas = [
+                        'Auditório', 'Biblioteca', 'Automobilíst', 'Ofic. Costura', 'Elétrica 1', 'Elétrica 2', 'Solda', 
+                        'Usinagem', 'Sala C1', 'Sala C2', 'Sala C3', 'Lab. Admin', 'Sala C5', 'Lab. CAD', 'Lab. CAM', 
+                        'Sala TI 1', 'Sala TI 2', 'Sala TI 3', 'Sala TI 4', 'Sala HIDR', 'Sala CLP', 'Eletroeletrô', 
+                        'MÁQ/COM', 'Of. Elet 1', 'Of. Elet 2', 'Automação', 'Metrologia', 'Lab. TI Redes'
+                    ];
+        
+                    nomesSalas.forEach((nome, index) => {
+                        const button = document.createElement('button');
+                        button.className = 'learn-more';
+                        button.setAttribute('data-table', index);
+                        button.innerHTML = `<span class="circle" aria-hidden="true"><span class="icon arrow"></span></span><span class="button-text">${nome}</span>`;
+                        horariosContainer.appendChild(button);
+                    });
+                });
+
+                
+            </script>
+        </div>
+
+        <!-- Tabelas Horizontais das Salas -->
+        <div class="container">
+            <div class="scrolling-wrapper">
+                <div class="horizontal-tables">
+                    <!-- Gerando 28 tabelas dinamicamente -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const tablesContainer = document.querySelector('.horizontal-tables');
+                            for (let i = 1; i <= 28; i++) {
+                                const table = document.createElement('table');
+                                table.className = 'horizontal-table';
+                                table.style.display = 'none';
+                                table.innerHTML = `
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Turno</th>
+                                            <th>Período</th>
+                                            <th>Status</th>
+                                            <th>Data de Cadastro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>${i}</td>
+                                            <td>${i % 2 === 0 ? 'Auditório' : 'Biblioteca'}</td>
+                                            <td>${i % 2 === 0 ? 'Manhã' : 'Tarde'}</td>
+                                            <td>${i % 2 === 0 ? 'Após o Intervalo' : 'Antes do Intervalo'}</td>
+                                            <td>${i % 2 === 0 ? 'Livre' : 'Reservado'}</td>
+                                            <td>2024-01-${i < 10 ? '0' + i : i}</td>
+                                        </tr>
+                                    </tbody>
+                                `;
+                                tablesContainer.appendChild(table);
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- Atualizando data -->
+        <script>
+            function updateDateDigits() {
+                const now = new Date();
+                const day = String(now.getDate()).padStart(2, '0');
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const year = String(now.getFullYear());
+
+                document.getElementById('day1').textContent = day[0];
+                document.getElementById('day2').textContent = day[1];
+                document.getElementById('month1').textContent = month[0];
+                document.getElementById('month2').textContent = month[1];
+                document.getElementById('year1').textContent = year[0];
+                document.getElementById('year2').textContent = year[1];
+                document.getElementById('year3').textContent = year[2];
+                document.getElementById('year4').textContent = year[3];
+            }
+
+            document.addEventListener('DOMContentLoaded', updateDateDigits);
+        </script>
+
+        <!-- Script para alternar tabelas e estilizar células -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const buttons = document.querySelectorAll('.horarios .learn-more');
+                const tables = document.querySelectorAll('.horizontal-table');
+
+                buttons.forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        // Remover classe 'button-active' de todos os botões
+                        buttons.forEach(btn => btn.classList.remove('button-active'));
+                        // Esconder todas as tabelas
+                        tables.forEach(table => table.style.display = 'none');
+                        // Exibir a tabela correspondente ao botão clicado
+                        tables[index].style.display = 'table';
+                        // Adicionar a classe 'button-active' ao botão clicado
+                        button.classList.add('button-active');
+                        // Destacar células com 'Reservado' e 'Livre'
+                        highlightReservedCells();
+                        highlightFreeCells();
+                    });
+                });
+
+                function highlightReservedCells() {
+                    document.querySelectorAll('td').forEach(cell => {
+                        if (cell.textContent.trim() === 'Reservado') {
+                            cell.classList.add('reserved');
+                        } else {
+                            cell.classList.remove('reserved');
+                        }
+                    });
+                }
+
+                function highlightFreeCells() {
+                    document.querySelectorAll('td').forEach(cell => {
+                        if (cell.textContent.trim() === 'Livre') {
+                            cell.classList.add('free');
+                        } else {
+                            cell.classList.remove('free');
+                        }
+                    });
+                }
+            });
+        </script>
+    </main>
+</body>
+</html>

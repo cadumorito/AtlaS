@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Formulário de Reserva</title>
+    <link rel="icon" href="web-logo.png" type="image/x-icon">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/formulario.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/navbar.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/calendario.css' %}">
+    <script src="{% static 'AtlaS/js/formulario.js' %}"></script>
+    <style>
+      html, body {
+          margin: 0; /* Certifique-se de que não haja margens */
+          background-image: url("{% static 'AtlaS/images/img_oficina.png' %}");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed; /* Adiciona esta linha para manter a imagem fixa */
+      }
+      #myImage {
+            cursor: pointer;
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <img src="{% static 'AtlaS/images/logo-branca.png' %}" alt="Logo">
+      </div>
+      <div class="redirecionamentos">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">INÍCIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'demonstrativo' %}">DEMONSTRATIVO</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reservas' %}">RESERVAS</a></li>
+        </ul>
+      </div>
+      <div class="icones">
+        <div class="login-icon-wrapper">
+          <a>
+            <i class="bi-person"></i>
+            <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+            </svg>
+          </a>
+          <div class="dropdown">
+            <a href="{% url 'minhas_reservas' %}">Minhas Reservas</a>
+            <a href="{% url 'cadastro' %}">Cadastrar-se</a>
+            <a href="{% url 'login' %}">Conectar-se</a>
+            <a href="{% url 'login' %}">Desconectar-se</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+    <main>
+        <div class="form-container">
+            <h1>Reserva de Sala</h1>
+            <img id="myImage" src="">
+
+            <!-- Fullscreen Container -->
+            <div id="fullscreenContainer" style="display: none;">
+                <img id="fullscreenImage" src="" alt="Fullscreen Imagem" style="width: 100%;">
+            </div>
+            <form action="#" method="POST" id="reserva">
+                <label for="course-name" style="font-weight: bold;">Nome da Sala</label>
+                <input type="text" id="course-name" name="course-name" placeholder="Digite o nome do curso" value="AUDITÓRIO" readonly required>
+                <label for="curso" style="font-weight: bold;">Escolha o Curso</label>
+                <select name="curso" id="curso" form="reserva">
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="opel">Opel</option>
+                  <option value="audi">Audi</option>
+                </select>
+                <label style="font-weight: bold;">Turno</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="turn" value="antes" required>
+                        <span class="custom-radio"></span>
+                        Manhã
+                    </label>
+                    <label>
+                        <input type="radio" name="turn" value="após" required>
+                        <span class="custom-radio"></span>
+                        Tarde
+                    </label>
+                </div>            
+                <label style="font-weight: bold;">Período</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="period" value="antes" required>
+                        <span class="custom-radio"></span>
+                        Antes do intervalo
+                    </label>
+                    <label>
+                        <input type="radio" name="period" value="após" required>
+                        <span class="custom-radio"></span>
+                        Após o intervalo
+                    </label>
+                </div>
+
+                <div id="calendarios">
+                  <div id="calendar-placeholder" style="text-align: center; margin-top: 20px;">
+                    <h2 id="placeholder-text" style="color: rgb(107, 107, 107);">O calendário aparecerá aqui</h2>
+                  </div> 
+                  <div class="calendario" id="calendario-manha-antes" style="display: none;">
+                    <h2 style="text-align: center;">Manhã - Antes do Intervalo</h2>
+                    <div class="ano-mes">
+                      <button id="prevMonthManhaAntes" class="arrow-button">↩</button>
+                      <span id="monthDisplayManhaAntes"></span>
+                      <button id="nextMonthManhaAntes" class="arrow-button">↪</button>
+                    </div>
+                    <div class="calendar"></div>
+                  </div>
+                  <div class="calendario" id="calendario-manha-apos" style="display: none;">
+                    <h2 style="text-align: center;">Manhã - Após o Intervalo</h2>
+                    <div class="ano-mes">
+                      <button id="prevMonthManhaApos" class="arrow-button">↩</button>
+                      <span id="monthDisplayManhaApos"></span>
+                      <button id="nextMonthManhaApos" class="arrow-button">↪</button>
+                    </div>
+                    <div class="calendar"></div>
+                  </div>
+                  <div class="calendario" id="calendario-tarde-antes" style="display: none;">
+                    <h2 style="text-align: center;">Tarde - Antes do Intervalo</h2>
+                    <div class="ano-mes">
+                      <button id="prevMonthTardeAntes" class="arrow-button">↩</button>
+                      <span id="monthDisplayTardeAntes"></span>
+                      <button id="nextMonthTardeAntes" class="arrow-button">↪</button>
+                    </div>
+                    <div class="calendar"></div>
+                  </div>
+                  <div class="calendario" id="calendario-tarde-apos" style="display: none;">
+                    <h2 style="text-align: center;">Tarde - Após o Intervalo</h2>
+                    <div class="ano-mes">
+                      <button id="prevMonthTardeApos" class="arrow-button">↩</button>
+                      <span id="monthDisplayTardeApos"></span>
+                      <button id="nextMonthTardeApos" class="arrow-button">↪</button>
+                    </div>
+                    <div class="calendar"></div>
+                  </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Reservar</button>
+            </form>
+        </div>
+    </main>
+    <script>
+      const myImage = document.getElementById('myImage');
+      const fullscreenContainer = document.getElementById('fullscreenContainer');
+      const fullscreenImage = document.getElementById('fullscreenImage');
+
+      myImage.addEventListener('click', function() {
+          fullscreenImage.src = this.src; // Define o src da imagem em fullscreen
+          fullscreenContainer.style.display = 'flex'; // Mostra o container
+      });
+
+      // Fecha o fullscreen ao clicar na imagem em fullscreen
+      fullscreenContainer.addEventListener('click', function() {
+          fullscreenContainer.style.display = 'none'; // Esconde o container
+      });
+
+    </script>
+    <script>
+      // Função para obter parâmetros da URL
+      function getQueryParam(param) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(param);
+      }
+
+      // Captura o parâmetro da imagem e define como src da imagem
+      window.onload = function() {
+          const imageSrc = getQueryParam('image');
+          if (imageSrc) {
+              const myImage = document.getElementById('myImage');
+              myImage.src = imageSrc; // Define a imagem a partir do parâmetro da URL
+          }
+      };
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+.navbar {
+  font-family: Arial, sans-serif;
+  background-color: #fc0c0c;
+  color: white;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  height: 20px;
+  gap: 20px;
+}
+
+.logo {
+  display: inline;
+  height: auto;
+  vertical-align: top;
+  flex-shrink: 0;
+  width: 200px; /* ajuste o valor para o tamanho desejado */
+  text-align: center;
+  margin-right: 20px;
+}
+
+.logo img {
+  width: 50%;
+  height: auto;
+}
+
+.redirecionamentos {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.nav-item {
+  margin-right: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  white-space: nowrap;
+  transition: transform 0.3s ease; /* Adiciona uma transição suave para o efeito de escala */
+  display: inline-block; /* Adiciona display inline-block para aplicar a escala corretamente */
+}
+
+.nav-link:hover {
+  transform: scale(1.2); /* Aumenta a escala em 20% quando o mouse passa sobre o link */
+}
+
+.icones {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  width: 200px; /* ajuste o valor para o tamanho desejado */
+  position: relative; /* Necessário para posicionar o dropdown corretamente */
+}
+
+.login-icon-wrapper {
+  position: relative; /* Necessário para posicionar o dropdown corretamente */
+  display: inline-block; /* Para que o hover funcione corretamente */
+}
+
+.login-icon {
+  height: 30px;
+  stroke: white; /* Define a cor do contorno como branco */
+  transition: transform 0.3s ease; /* Adiciona uma transição suave para o efeito de escala */
+}
+
+.login-icon:hover {
+  transform: scale(1.2); /* Aumenta a escala em 20% quando o mouse passa sobre o SVG */
+}
+
+/* Estilos do Dropdown */
+.dropdown {
+  position: absolute; /* Posiciona o dropdown em relação ao contêiner pai */
+  top: 100%; /* Posiciona o dropdown abaixo do ícone */
+  left: 50%; /* Alinha o dropdown ao centro horizontal do contêiner pai */
+  transform: translateX(-50%); /* Move o dropdown para a esquerda pela metade de sua largura */
+  background-color: white;
+  color: red;
+  display: none; /* Oculta o dropdown por padrão */
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000; /* Garante que o dropdown apareça sobre outros elementos */
+  min-width: 150px; /* Define uma largura mínima para o dropdown */
+  text-align: center; /* Centraliza o texto dentro do dropdown */
+  border-radius: 10px; /* Borda arredondada */
+  overflow: hidden; /* Oculta conteúdo que ultrapassa os limites arredondados */
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: red; /* Define a cor do texto como vermelho */
+}
+
+.dropdown a:hover {
+  background-color: #e7e7e7; /* Adiciona um fundo claro quando o mouse passa sobre o item */
+}
+
+/* Estilo para exibir o dropdown somente quando o mouse passa sobre o contêiner do ícone */
+
+.login-icon-wrapper:hover .dropdown {
+  display: block; /* Exibe o dropdown quando o mouse passa sobre o contêiner do ícone */
+}

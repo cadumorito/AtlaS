@@ -1,10 +1,12 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.urls import path
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('demonstrativo/', views.demonstrativo, name='demonstrativo'),
+    path('imagem_usuario/<int:id_user>/', views.obter_imagem_usuario, name='obter_imagem_usuario'),
     path('reservas', views.reservas, name='reservas'),
     path('reservas/formulario/', views.formulario, name='formulario'),
     path('minhas_reservas/', views.minhas_reservas, name='minhas_reservas'),

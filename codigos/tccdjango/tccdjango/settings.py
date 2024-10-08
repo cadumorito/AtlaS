@@ -75,12 +75,19 @@ WSGI_APPLICATION = 'tccdjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# settings.py
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'AtlaS',
+        'USER': 'root',  # substitua pelo seu usuário
+        'PASSWORD': 'devmysql',  # substitua pela sua senha
+        'HOST': 'localhost',  # ou o endereço do seu banco de dados
+        'PORT': '3306',  # porta padrão do MySQL
     }
 }
+
 
 
 # Password validation
@@ -136,3 +143,6 @@ STATICFILES_DIRS = [
 
 # Diretório onde os arquivos estáticos serão coletados para produção
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

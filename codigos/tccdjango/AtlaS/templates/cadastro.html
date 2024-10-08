@@ -55,9 +55,16 @@
         <main>
             <div class="body">
                     <div class="container">
-                        <form class="form-cadastro">
+                      <form class="form-cadastro" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                             <div class="head">
                                 <span>Cadastre-se</span>
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert {{ message.tags }}">{{ message }}</div>
+                                    {% endfor %}
+                                {% endif %}
+
                                 <!-- <p>Crie sua conta utilizando o seu e-mail</p> !-->
                                 <span id="error-message" class="error-message" style="font-size: 12px; color: red;"></span>
                                 <span id="success-message" class="success-message" style="font-size: 15px; color: green; text-align: center;"></span>
@@ -73,7 +80,7 @@
                                 <div class="text">
                                     <span>Escolha sua foto de perfil</span>
                                 </div>
-                                <input id="file" type="file">
+                                <input id="file" type="file" name="imagem">
                                 <p id="file-name"></p>
                             </label>                            
                                     <script>
@@ -85,12 +92,10 @@
                                           fileNameElement.textContent = `${fileName}`;
                                         });
                                       </script>
-                                <input class="input" type="text" placeholder="Nome completo">
-                                <input class="input" type="email" placeholder="E-mail">
-                                <input class="input" type="text" class="form-control" id="phone" name="phone" 
-                                        maxlength="13" 
-                                        placeholder="Telefone" required="required" />
-
+                                  <input class="input" type="text" name="nome" placeholder="Nome completo" required>
+                                  <input class="input" type="email" name="email" placeholder="E-mail" required>
+                                  <input class="input" type="text" name="telefone" maxlength="13" placeholder="Telefone" required>
+                                  <input class="input" type="password" name="senha" placeholder="Senha" required>
                                   <script>
                                     const phoneInput = document.getElementById('phone');
                                     let countryCodeAdded = false;
@@ -124,32 +129,31 @@
                                       e.target.setCustomValidity('Número de telefone precisa ser no formato +55 (99) 99999-9999\nEscreva no formato "999999999" que ele será convertido');
                                     });
                                   </script>
-                                <input class="input" type="password" placeholder="Senha">
-                                <div class="wrapper">
-                                  <input type="radio" name="select" id="option-1" checked>
-                                  <input type="radio" name="select" id="option-2">
-                                  <input type="radio" name="select" id="option-3">
-                                  <input type="radio" name="select" id="option-4">
+                                  <div class="wrapper">
+                                    <input type="radio" name="id_categoria" id="option-1" value="1" checked>
+                                    <input type="radio" name="id_categoria" id="option-2" value="2">
+                                    <input type="radio" name="id_categoria" id="option-3" value="3">
+                                    <input type="radio" name="id_categoria" id="option-4" value="4">
                                     <label for="option-1" class="option option-1">
-                                      <div class="dot"></div>
-                                       <span>Coordenador</span>
-                                       </label>
+                                        <div class="dot"></div>
+                                        <span>Coordenador</span>
+                                    </label>
                                     <label for="option-2" class="option option-2">
-                                      <div class="dot"></div>
-                                       <span>Instrutor</span>
+                                        <div class="dot"></div>
+                                        <span>Instrutor</span>
                                     </label>
                                     <label for="option-3" class="option option-3">
-                                      <div class="dot"></div>
-                                       <span>Apoio</span><span>téc.</span>
+                                        <div class="dot"></div>
+                                        <span>Apoio</span><span>Téc.</span>
                                     </label>
                                     <label for="option-4" class="option option-4">
-                                      <div class="dot"></div>
-                                       <span>Especialista</span>
+                                        <div class="dot"></div>
+                                        <span>Especialista</span>
                                     </label>
-                                 </div>
-                            </div>
-                            <button>Cadastre-se</button>
-                        </form>
+                                  </div>
+                              </div>
+                              <button type="submit">Cadastre-se</button>
+                          </form>
                         <!-- <span class="agreement" ><a class="termos" target="_blank" href="termos.pdf">Leia os termos de acordo do usuário</a></span> !-->
                         <div class="form-footer">
                             <p>Já possui uma conta? <a href="{% url 'login' %}">Conecte-se!</a></p> 

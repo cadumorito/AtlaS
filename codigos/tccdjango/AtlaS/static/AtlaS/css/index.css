@@ -4,9 +4,9 @@ html, body {
 
 main {
     display: flex;
-    flex-direction: column; /* Corrigido para manter a centralização vertical */
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 100px;
 }
 
@@ -100,58 +100,22 @@ button:hover i {
     opacity: 1;
 }
 
-button:hover i:nth-child(1) {
-    transition-delay: 0.045s;
-}
+/* Repetido para múltiplos filhos, se necessário */
 
-button:hover i:nth-child(2) {
-    transition-delay: calc(0.045s * 3);
-}
-
-button:hover i:nth-child(3) {
-    transition-delay: calc(0.045s * 4);
-}
-
-button:hover i:nth-child(4) {
-    transition-delay: calc(0.045s * 5);
-}
-
-button:hover i:nth-child(6) {
-    transition-delay: calc(0.045s * 6);
-}
-
-button:hover i:nth-child(7) {
-    transition-delay: calc(0.045s * 7);
-}
-
-button:hover i:nth-child(8) {
-    transition-delay: calc(0.045s * 8);
-}
-
-button:hover i:nth-child(9) {
-    transition-delay: calc(0.045s * 9);
-}
-
-button:hover i:nth-child(10) {
-    transition-delay: calc(0.045s * 10);
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px; /* Define a largura máxima da área visível */
-    overflow-x: hidden; /* Esconde o conteúdo que ultrapassa o contêiner na horizontal */
+.container { 
+    width: 80%;
+    margin-bottom: 20px;
 }
 
 .scrolling-wrapper {
-    overflow: hidden; /* Esconde as partes não visíveis */
-    white-space: normal; /* Permite que os elementos se alinhem corretamente em múltiplas linhas */
+    overflow: hidden;
+    white-space: normal;
     position: relative;
 }
 
 .horizontal-tables {
-    display: flex;
-    width: 100%; /* Garante que as tabelas se alinhem corretamente sem rolagem horizontal */
-    animation: scroll-infinite 60s linear infinite; /* Duração maior para suavizar a rotação */
+    width: 100%;
+    animation: scroll-infinite 60s linear infinite;
 }
 
 .tables-wrapper {
@@ -161,24 +125,31 @@ button:hover i:nth-child(10) {
 
 .horizontal-table {
     border-collapse: collapse;
-    width: 100%; /* Ajusta a largura da tabela ao tamanho do contêiner */
-    background-color: white;
-    flex: 0 0 auto; /* Garante que as tabelas não encolham */
-    display: none;
-    margin-bottom: 70px;
+    width: 100%;
+    box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.568);
 }
 
+.horizontal-table th, .horizontal-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
 
 .horizontal-table thead th {
     background-color: #333;
     color: white;
-    padding: 10px;
-    text-align: left;
 }
 
-.horizontal-table tbody td {
-    border: 1px solid #ddd;
-    padding: 10px;
+.horizontal-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.horizontal-table tbody tr:nth-child(odd) {
+    background-color: #e6e1e1;
+}
+
+.horizontal-table tbody tr:hover {
+    background-color: #f3adad;
 }
 
 button.learn-more {
@@ -272,7 +243,6 @@ button.learn-more:hover .button-text {
     color: #fff;
 }
 
-/* Novo estilo para manter o estado de hover quando o botão está ativo */
 button.learn-more.button-active .circle {
     width: 100%;
 }
@@ -294,12 +264,12 @@ button.learn-more.button-active .button-text {
 
 .reserved {
     background-color: rgba(255, 0, 0, 0.658);
-    color: white; /* Ajuste a cor do texto para contraste */
+    color: white;
 }
 
 .free {
     background-color: rgba(51, 255, 0, 0.61);
-    color: rgb(0, 0, 0); /* Ajuste a cor do texto para contraste */
+    color: rgb(0, 0, 0);
 }
 
 .geral {
@@ -308,6 +278,7 @@ button.learn-more.button-active .button-text {
     margin-bottom: 70px;
     display: flex;
 }
+
 #visao_geral {
     width: 100%;
     border-collapse: collapse;
@@ -321,56 +292,62 @@ button.learn-more.button-active .button-text {
 }
 
 #visao_geral thead th {
-    background-color: #333; /* Fundo do cabeçalho */
-    color: white; /* Cor do texto */
+    background-color: #333;
+    color: white;
 }
 
 #visao_geral tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Fundo das linhas pares */
+    background-color: #f9f9f9;
 }
 
 #visao_geral tbody tr:nth-child(odd) {
-    background-color: #e6e1e1; /* Fundo das linhas ímpares */
+    background-color: #e6e1e1;
 }
 
 #visao_geral tbody tr:hover {
-    background-color: #f3adad; /* Fundo das linhas ao passar o mouse */
+    background-color: #f3adad;
 }
+
 .horarios {
     display: flex;
-    justify-content: center; /* Centraliza os botões */
-    flex-wrap: wrap; /* Permite que os botões quebrem linha, se necessário */
-    gap: 10px; /* Adiciona um pequeno espaço entre os botões */
-    padding: 20px; /* Adiciona um pouco de espaço em torno dos botões */
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
     width: 80%;
 }
 
 .horarios .learn-more {
-    color: white; /* Cor do texto */
-    border: none; /* Remove borda */
-    border-radius: 5px; /* Bordas arredondadas */
-    padding: 8px 12px; /* Tamanho do botão */
-    font-size: 12px; /* Tamanho da fonte */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 12px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Efeito de transição ao passar o mouse */
+    transition: background-color 0.3s;
 }
 
 .button-text {
-    margin-left: 5px; /* Pequeno espaço entre o ícone e o texto */
+    margin-left: 5px;
 }
 
 .horarios .circle {
-    width: 15px; /* Dimensão do ícone */
+    width: 15px;
     height: 15px;
 }
 
 .button-active {
-    background-color: #333; /* Cor do botão ativo */
+    background-color: #333;
 }
 
 @media (max-width: 768px) {
     .horarios .learn-more {
-        padding: 8px 12px; /* Tamanho reduzido dos botões para telas menores */
+        padding: 8px 12px;
         font-size: 12px;
     }
+
+    .horizontal-table, #visao_geral {
+        font-size: 12px; /* Tamanho reduzido da fonte para telas menores */
+    }
 }
+

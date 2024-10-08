@@ -52,129 +52,39 @@
           </div>
         </div>
       </nav>
-    <main>
-        <h2 class="toggle-button">Demonstrativo de Usuários 1</h2>
+      <main>
+        <h2 class="toggle-button">Demonstrativo de Usuários</h2>
         <table class="userTable">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
                     <th>E-mail</th>
-                    <th>Idade</th>
-                    <th>Data de Cadastro</th>
+                    <th>Telefone</th>
+                    <th>Categoria</th>
+                    <th>Imagem</th>
                 </tr>
             </thead>
             <tbody>
+                {% for usuario in usuarios %}
                 <tr>
-                    <td>1</td>
-                    <td>João da Silva</td>
-                    <td>joao.silva@example.com</td>
-                    <td>28</td>
-                    <td>2024-01-15</td>
+                    <td>{{ usuario.id_user }}</td>
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.telefone }}</td>
+                    <td>{{ usuario.id_categoria }}</td>
+                    <td><img src="data:image/jpeg;base64,{{ usuario.imagem_base64 }}" alt="Imagem de {{ usuario.nome }}" width="50" height="50">
+                    </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Maria Oliveira</td>
-                    <td>maria.oliveira@example.com</td>
-                    <td>34</td>
-                    <td>2023-11-20</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Pedro Santos</td>
-                    <td>pedro.santos@example.com</td>
-                    <td>22</td>
-                    <td>2024-03-05</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Ana Costa</td>
-                    <td>ana.costa@example.com</td>
-                    <td>31</td>
-                    <td>2023-12-10</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Lucas Pereira</td>
-                    <td>lucas.pereira@example.com</td>
-                    <td>27</td>
-                    <td>2024-02-28</td>
-                </tr>
+                {% endfor %}
+                
             </tbody>
         </table>
-
-        <h2 class="toggle-button">Demonstrativo de Usuários 2</h2>
-        <table class="userTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Idade</th>
-                    <th>Data de Cadastro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>João da Silva</td>
-                    <td>joao.silva@example.com</td>
-                    <td>28</td>
-                    <td>2024-01-15</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Maria Oliveira</td>
-                    <td>maria.oliveira@example.com</td>
-                    <td>34</td>
-                    <td>2023-11-20</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Pedro Santos</td>
-                    <td>pedro.santos@example.com</td>
-                    <td>22</td>
-                    <td>2024-03-05</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Ana Costa</td>
-                    <td>ana.costa@example.com</td>
-                    <td>31</td>
-                    <td>2023-12-10</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Lucas Pereira</td>
-                    <td>lucas.pereira@example.com</td>
-                    <td>27</td>
-                    <td>2024-02-28</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2 class="toggle-button">Demonstrativo de Usuários 3</h2>
-        <table class="userTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Idade</th>
-                    <th>Data de Cadastro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>João da Silva</td>
-                    <td>joao.silva@example.com</td>
-                    <td>28</td>
-                    <td>2024-01-15</td>
-                </tr>
-            </tbody>
-        </table>
+        
     </main>
+    
+    
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButtons = document.querySelectorAll('.toggle-button');

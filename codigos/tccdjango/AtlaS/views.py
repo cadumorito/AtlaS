@@ -11,6 +11,81 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.models import User
+# views.py
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria
+
+from .models import Usuario, Categoria
+from django.shortcuts import get_object_or_404
+
+from django.http.response import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria
+from django.views.decorators.csrf import csrf_exempt
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria
+from django.views.decorators.csrf import csrf_exempt
+
+from django.shortcuts import render, redirect
+from AtlaS.models import Usuario, Categoria  # Certifique-se de que 'Usuario' é o modelo correto
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria
+from django.views.decorators.csrf import csrf_exempt
+
+from django.shortcuts import render
+from .models import Usuario
+
+
+@csrf_exempt
+def cadastro(request):
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        email = request.POST['email']
+        senha = request.POST['senha']
+        telefone = request.POST['telefone']
+        imagem = request.FILES.get('imagem')
+        id_categoria = request.POST.get('id_categoria')
+
+        try:
+            # Aqui, id_categoria é obtido como string do formulário, e é convertido para inteiro
+            categoria = Categoria.objects.get(id=int(id_categoria))  # Convertendo para int para garantir que estamos buscando corretamente
+        except Categoria.DoesNotExist:
+            return HttpResponse("Categoria não encontrada.", status=404)
+
+        # Cria o usuário com a categoria selecionada
+        usuario = Usuario(
+            nome=nome,
+            email=email,
+            senha=senha,
+            telefone=telefone,
+            imagem=imagem,
+            id_categoria=categoria  # Relacionando a instância da categoria ao usuário
+        )
+
+        usuario.save()
+        messages.success(request, 'Usuário cadastrado com sucesso!')
+        return redirect('login')  # Redirecione para a página desejada
+
+
+    # Renderiza o template de cadastro
+    return render(request, 'cadastro.html')
+
+
 
 def send_password_reset_email(request):
     if request.method == 'POST':
@@ -43,35 +118,6 @@ def send_password_reset_email(request):
 def reset_password(request):
     return render(request, 'reset_password.html')
 
-@csrf_exempt
-def cadastro(request):
-    if request.method == 'POST':
-        # Get form data
-        name = request.POST.get('name')
-        number = request.POST.get('number')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        # Check if user already exists
-        if User.objects.filter(name=name).exists():
-            return render(request, 'cadastro.html', {'error_message': 'Já existe um usuário com esse username'})
-        
-        if User.objects.filter(email=email).exists():
-            return render(request, 'cadastro.html', {'error_message': 'Já existe um usuário com esse e-mail.'})
-        
-        if User.objects.filter(number=number).exists():
-            return render(request, 'cadastro.html', {'error_message': 'Já existe um usuário com esse e-mail.'})
-        
-        # Create new user
-        try:
-            user = User.objects.create_user(username=name, number=number, email=email, password=password)
-            user.save()
-            return render(request, 'cadastro.html', {'success_message': 'Usuário criado com sucesso!'})
-        except Exception as e:
-            return render(request, 'cadastro.html', {'error_message': f'Erro ao criar usuário: {str(e)}'})
-
-    # Handle GET request
-    return render(request, 'cadastro.html')
 
 @csrf_exempt
 def login(request):
@@ -108,9 +154,41 @@ def inicio(request):
     return render(request, 'index.html')
 
 ## @login_required(login_url='login')
-@csrf_exempt
+
+
+import base64
+from django.shortcuts import render
+from .models import Usuario
+
 def demonstrativo(request):
-    return render(request, 'demonstrativo.html')
+    usuarios = Usuario.objects.all()
+
+    # Iterar sobre os usuários para converter as imagens em base64
+    for usuario in usuarios:
+        if usuario.imagem:
+            # Converte a imagem (BLOB) para base64
+            usuario.imagem_base64 = base64.b64encode(usuario.imagem).decode('utf-8')
+
+    return render(request, 'demonstrativo.html', {'usuarios': usuarios})
+
+
+
+
+def obter_imagem_usuario(request, id_user):
+    try:
+        usuario = Usuario.objects.get(id_user=id_user)
+        if usuario.imagem:
+            # Retorna a imagem como uma resposta HTTP
+            return HttpResponse(usuario.imagem, content_type="image/jpeg")
+        else:
+            return HttpResponse('Imagem não disponível', status=404)
+    except Usuario.DoesNotExist:
+        return HttpResponse('Usuário não encontrado', status=404)
+
+
+
+
+
 
 ## @login_required(login_url='login')
 @csrf_exempt

@@ -69,7 +69,7 @@
             </div>
             <form action="#" method="POST" id="reserva">
                 <label for="course-name" style="font-weight: bold;">Nome da Sala</label>
-                <input type="text" id="course-name" name="course-name" placeholder="Digite o nome do curso" value="AUDITÓRIO" readonly required>
+                <input type="text" id="course-name" name="course-name" placeholder="Digite o nome do curso" readonly required>
                 <label for="curso" style="font-weight: bold;">Escolha o Curso</label>
                 <select name="curso" id="curso" form="reserva">
                   <option value="volvo">Volvo</option>
@@ -166,21 +166,29 @@
       });
 
     </script>
-    <script>
-      // Função para obter parâmetros da URL
-      function getQueryParam(param) {
-          const urlParams = new URLSearchParams(window.location.search);
-          return urlParams.get(param);
+<script>
+  // Função para obter parâmetros da URL
+  function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+  }
+
+  // Captura o parâmetro da imagem e define como src da imagem
+  window.onload = function() {
+      // Obtém o parâmetro da imagem
+      const imageSrc = getQueryParam('image');
+      if (imageSrc) {
+          const myImage = document.getElementById('myImage');
+          myImage.src = imageSrc; // Define a imagem a partir do parâmetro da URL
       }
 
-      // Captura o parâmetro da imagem e define como src da imagem
-      window.onload = function() {
-          const imageSrc = getQueryParam('image');
-          if (imageSrc) {
-              const myImage = document.getElementById('myImage');
-              myImage.src = imageSrc; // Define a imagem a partir do parâmetro da URL
-          }
-      };
-  </script>
+      // Obtém o parâmetro do nome do curso e define como valor do input
+      const courseName = getQueryParam('courseName');
+      if (courseName) {
+          const courseInput = document.getElementById('course-name');
+          courseInput.value = courseName; // Define o nome do curso no input
+      }
+  };
+</script>
 </body>
 </html>

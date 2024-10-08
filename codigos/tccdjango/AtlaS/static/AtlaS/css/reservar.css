@@ -264,4 +264,5 @@ h2 {
     margin-top: 100px;
     gap: 100px;
     max-width: 1500px !important;
+    width: 75%;
 }

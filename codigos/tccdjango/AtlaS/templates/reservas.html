@@ -58,7 +58,7 @@
         <div class="buttons2">
           <button class="button_out">Gerar PDF</button>
           <button class="button_out" id="reserva" onclick="scrollToDiv()">Fazer reserva</button>
-          <button class="button_out">Relatório</button>
+          <a href="{% url 'relatorio' %}"><button class="button_out">Relatório</button></a>
         </div>
         <div class="container-filtro">
           <!-- Input para seleção de data usando um calendário -->
@@ -155,7 +155,7 @@
                         Espaço amplo e equipado para palestras, workshops e apresentações. Ideal para eventos!
                     </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('auditorio-img')">
+                <button class="shadow__btn" onclick="reservarSala('auditorio-img', 'Auditório')">
                     RESERVAR
                 </button>
             </div>
@@ -176,7 +176,7 @@
                 Local tranquilo e organizado, perfeito para estudo, leitura e pesquisa. Recursos variados disponíveis!
               </p>
             </div>
-            <button class="shadow__btn" onclick="reservarSala('biblioteca-img')">
+            <button class="shadow__btn" onclick="reservarSala('biblioteca-img', 'Biblioteca')">
                 RESERVAR
             </button>
           </div>
@@ -197,7 +197,7 @@
                 Espaço especializado para o estudo de manutenção e de reparos de veículos.
               </p>
             </div>
-            <button class="shadow__btn" onclick="reservarSala('automob-img')">
+            <button class="shadow__btn" onclick="reservarSala('automob-img', 'Oficina de Automobilística')">
               RESERVAR
           </button>
           </div>
@@ -220,49 +220,49 @@
                   Ambiente criativo para aprender e desenvolver técnicas de costura. Projetos personalizados e práticas!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('costura-img')">
+              <button class="shadow__btn" onclick="reservarSala('costura-img', 'Oficina de Costura')">
                 RESERVAR
             </button>
             </div>
           </article>
-          <article class="card" id="eletrica1">
+          <article class="card" id="metrologia">
             <img
-            id="elet1-img"
+            id="metro-img"
               class="card__background"
-              src=""
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_METROLOGIA.jpg' %}"
               alt="Planta da sala específica"
               width="1920"
               height="2193"
             />
             <div class="card__content | flow">
               <div class="card__content--container | flow">
-                <h2 class="card__title">ELÉTRICA 1</h2>
+                <h2 class="card__title">METROLOGIA</h2>
                 <p class="card__description">
-                  Espaço para aprendizado sobre circuitos e sistemas elétricos. Focado em práticas seguras e eficientes!
+                  Ambiente dedicado à medição e controle de precisão. Essencial para garantir qualidade e conformidade em processos!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('elet1-img')">
+              <button class="shadow__btn" onclick="reservarSala('metro-img', 'Laboratório de Metrologia')">
                 RESERVAR
             </button>
             </div>
           </article>
-          <article class="card" id="eletrica2">
+          <article class="card" id="automacao">
             <img
-            id="elet2-img"
+            id="auto-img"
               class="card__background"
-              src=""
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_AUTOMRESIDENCIAL.jpg' %}"
               alt="Planta da sala específica"
               width="1920"
               height="2193"
             />
             <div class="card__content | flow">
               <div class="card__content--container | flow">
-                <h2 class="card__title">ELÉTRICA 2</h2>
+                <h2 class="card__title">AUTOMAÇÃO</h2>
                 <p class="card__description">
-                  Espaço para aprendizado sobre circuitos e sistemas elétricos. Focado em práticas seguras e eficientes!
+                  Espaço voltado para o estudo e aplicação de sistemas automatizados,  como o uso da Alexa.
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('elet2-img')">
+              <button class="shadow__btn" onclick="reservarSala('auto-img', 'Laboratório de Automoção Residencial')">
                 RESERVAR
             </button>
             </div>
@@ -285,7 +285,7 @@
                   Espaço seguro e equipado para aprender técnicas de soldagem. Ideal para projetos metálicos!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('solda-img')">
+              <button class="shadow__btn" onclick="reservarSala('solda-img', 'Sala de Solda')">
                 RESERVAR
             </button>
             </div>
@@ -306,7 +306,7 @@
                   Área técnica para corte e modelagem de metais. Ideal para criar peças precisas e personalizadas!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('usinagem-img')">
+              <button class="shadow__btn" onclick="reservarSala('usinagem-img', 'Oficina de Usinagem')">
                 RESERVAR
             </button>
             </div>
@@ -327,7 +327,7 @@
                   Espaço para estudo e prática em redes de computadores. Focado em conectividade e gestão de sistemas!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('redes-img')">
+              <button class="shadow__btn" onclick="reservarSala('redes-img', 'Laboratório de Redes - TI')">
                 RESERVAR
             </button>
             </div>
@@ -350,7 +350,7 @@
                   Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('c1-img')">
+              <button class="shadow__btn" onclick="reservarSala('c1-img', 'Sala C1')">
                 RESERVAR
             </button>
             </div>
@@ -371,7 +371,7 @@
                   Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('c2-img')">
+              <button class="shadow__btn" onclick="reservarSala('c2-img', 'Sala C2')">
                 RESERVAR
             </button>
             </div>
@@ -392,7 +392,7 @@
                   Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('c3-img')">
+              <button class="shadow__btn" onclick="reservarSala('c3-img', 'Sala C3')">
                 RESERVAR
             </button>
             </div>
@@ -415,7 +415,7 @@
                   Espaço dedicado à gestão e organização de projetos. Focado em estratégias e eficiência operacional!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('admin-img')">
+              <button class="shadow__btn" onclick="reservarSala('admin-img', 'Laboratório de Adminstração')">
                 RESERVAR
             </button>
             </div>
@@ -436,7 +436,7 @@
                   Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('c5-img')">
+              <button class="shadow__btn" onclick="reservarSala('c5-img', 'Sala C5')">
                 RESERVAR
             </button>
             </div>
@@ -457,7 +457,7 @@
                   Ambiente dedicado ao design e modelagem 3D de projetos. Ideal para criar e desenvolver ideias inovadoras!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('cad-img')">
+              <button class="shadow__btn" onclick="reservarSala('cad-img', 'Laboratório CAD')">
                 RESERVAR
             </button>
             </div>
@@ -480,7 +480,7 @@
                   Espaço tecnológico para produção automatizada de peças. Integra design e fabricação com precisão!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('cam-img')">
+              <button class="shadow__btn" onclick="reservarSala('cam-img', 'Laboratório CAM')">
                 RESERVAR
             </button>
             </div>
@@ -501,7 +501,7 @@
                   Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('ti1-img')">
+              <button class="shadow__btn" onclick="reservarSala('ti1-img', 'Laboratório TI 1')">
                 RESERVAR
             </button>
             </div>
@@ -522,7 +522,7 @@
                   Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                 </p>
               </div>
-              <button class="shadow__btn" onclick="reservarSala('ti2-img')">
+              <button class="shadow__btn" onclick="reservarSala('ti2-img', 'Laboratório TI 2')">
                 RESERVAR
             </button>
             </div>
@@ -545,7 +545,7 @@
                     Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('ti3-img')">
+                <button class="shadow__btn" onclick="reservarSala('ti3-img', 'Laboratório TI 3')">
                   RESERVAR
               </button>
               </div>
@@ -566,7 +566,7 @@
                     Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('ti4-img')">
+                <button class="shadow__btn" onclick="reservarSala('ti4-img', 'Laboratório TI 4')">
                   RESERVAR
               </button>
               </div>
@@ -587,7 +587,7 @@
                     Espaço voltado para estudos e práticas em hidráulica. Ideal para experimentos e simulações de fluidos!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('hidr-img')">
+                <button class="shadow__btn" onclick="reservarSala('hidr-img', 'Laboratório de Hidráulica')">
                   RESERVAR
               </button>
               </div>
@@ -610,7 +610,7 @@
                     Ambiente para aprendizado em controle lógico programável. Focado em automação industrial e práticas técnicas!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('clp-img')">
+                <button class="shadow__btn" onclick="reservarSala('clp-img', 'Sala CLP')">
                   RESERVAR
               </button>
               </div>
@@ -631,7 +631,7 @@
                     Espaço para estudo e experimentação em circuitos elétricos e eletrônicos. Ideal para prática e inovação!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('eletroele-img')">
+                <button class="shadow__btn" onclick="reservarSala('eletroele-img', 'Laboratório de Eletroeletrônica')">
                   RESERVAR
               </button>
               </div>
@@ -652,7 +652,7 @@
                     Espaço dedicado a máquinas e comandos. Focado em automação e controle de processos industriais!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('maqcom-img')">
+                <button class="shadow__btn" onclick="reservarSala('maqcom-img', 'Laboratório de Máquina e Comandos')">
                   RESERVAR
               </button>
               </div>
@@ -675,7 +675,7 @@
                     Ambiente prático para aprendizado sobre instalações e manutenção elétrica. Segurança e eficiência em foco!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('ofelet1-img')">
+                <button class="shadow__btn" onclick="reservarSala('ofelet1-img', 'Oficina Elétrica 1')">
                   RESERVAR
               </button>
               </div>
@@ -696,56 +696,13 @@
                     Ambiente prático para aprendizado sobre instalações e manutenção elétrica. Segurança e eficiência em foco!
                   </p>
                 </div>
-                <button class="shadow__btn" onclick="reservarSala('ofelet2-img')">
+                <button class="shadow__btn" onclick="reservarSala('ofelet2-img', 'Oficina Elétrica 2')">
                   RESERVAR
               </button>
               </div>
             </article>
-            <article class="card" id="automacao">
-              <img
-              id="auto-img"
-                class="card__background"
-                src="{% static 'AtlaS/images/plantas-imagens/LAB_AUTOMRESIDENCIAL.jpg' %}"
-                alt="Planta da sala específica"
-                width="1920"
-                height="2193"
-              />
-              <div class="card__content | flow">
-                <div class="card__content--container | flow">
-                  <h2 class="card__title">AUTOMAÇÃO</h2>
-                  <p class="card__description">
-                    Espaço voltado para o estudo e aplicação de sistemas automatizados,  como o uso da Alexa.
-                  </p>
-                </div>
-                <button class="shadow__btn" onclick="reservarSala('auto-img')">
-                  RESERVAR
-              </button>
+
               </div>
-            </article>
-              </div>
-              <div class="salas">
-                <article class="card" id="metrologia">
-                  <img
-                  id="metro-img"
-                    class="card__background"
-                    src="{% static 'AtlaS/images/plantas-imagens/LAB_METROLOGIA.jpg' %}"
-                    alt="Planta da sala específica"
-                    width="1920"
-                    height="2193"
-                  />
-                  <div class="card__content | flow">
-                    <div class="card__content--container | flow">
-                      <h2 class="card__title">METROLOGIA</h2>
-                      <p class="card__description">
-                        Ambiente dedicado à medição e controle de precisão. Essencial para garantir qualidade e conformidade em processos!
-                      </p>
-                    </div>
-                    <button class="shadow__btn" onclick="reservarSala('metro-img')">
-                      RESERVAR
-                  </button>
-                  </div>
-                </article>
-                </div>
                 <div style="margin-bottom: 60px;"></div>
     </main>
 
@@ -785,13 +742,13 @@
         
     </script>
 <script>
-  function reservarSala(imageId) {
+  function reservarSala(imageId, courseName) {
       // Pega o elemento de imagem pelo id e seu atributo src
       var imageElement = document.getElementById(imageId);
       var imageSrc = imageElement.src;
 
-      // Redireciona para a URL do formulário com o parâmetro da imagem
-      window.location.href = "{% url 'formulario' %}?image=" + encodeURIComponent(imageSrc);
+      // Redireciona para a URL do formulário com o parâmetro da imagem e o nome do curso
+      window.location.href = "{% url 'formulario' %}?image=" + encodeURIComponent(imageSrc) + "&courseName=" + encodeURIComponent(courseName);
   }
 </script>
 

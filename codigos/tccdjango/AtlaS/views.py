@@ -51,6 +51,15 @@ from django.shortcuts import render
 from .models import Usuario
 
 
+import os
+from PIL import Image
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+
 @csrf_exempt
 def cadastro(request):
     if request.method == 'POST':
@@ -62,28 +71,47 @@ def cadastro(request):
         id_categoria = request.POST.get('id_categoria')
 
         try:
-            # Aqui, id_categoria é obtido como string do formulário, e é convertido para inteiro
-            categoria = Categoria.objects.get(id=int(id_categoria))  # Convertendo para int para garantir que estamos buscando corretamente
+            categoria = Categoria.objects.get(id_categoria=int(id_categoria))
         except Categoria.DoesNotExist:
             return HttpResponse("Categoria não encontrada.", status=404)
 
-        # Cria o usuário com a categoria selecionada
+        # Cria o usuário antes de redimensionar a imagem para ter acesso ao id_user
         usuario = Usuario(
             nome=nome,
             email=email,
             senha=senha,
             telefone=telefone,
-            imagem=imagem,
-            id_categoria=categoria  # Relacionando a instância da categoria ao usuário
+            id_categoria=categoria
         )
+        usuario.save()  # Salva o usuário para obter o id_user
 
-        usuario.save()
+        # Redimensiona e salva a imagem
+        if imagem:
+            # Cria a pasta se não existir
+            pasta_fotos = os.path.join('AtlaS', 'static', 'AtlaS', 'images', 'media', 'fotos_de_perfil')
+            os.makedirs(pasta_fotos, exist_ok=True)
+
+            # Redimensiona a imagem
+            img = Image.open(imagem)
+            img = img.resize((500, 500), Image.LANCZOS)
+
+            # Gera o novo nome de arquivo com a primeira palavra do nome e o id_user
+            primeiro_nome = nome.split()[0].capitalize()  # Primeiro nome com a primeira letra maiúscula
+            novo_nome = f"{primeiro_nome}{usuario.id_user}.png"  # Formato: Pedro3.png
+            caminho_completo = os.path.join(pasta_fotos, novo_nome)
+
+            # Salva a imagem na nova pasta
+            img.save(caminho_completo)
+
+            # Define o caminho da imagem para o banco de dados
+            usuario.imagem = f'AtlaS/images/media/fotos_de_perfil/{novo_nome}'  # Caminho relativo
+            usuario.save()
+
         messages.success(request, 'Usuário cadastrado com sucesso!')
-        return redirect('login')  # Redirecione para a página desejada
+        return redirect('login')
 
-
-    # Renderiza o template de cadastro
     return render(request, 'cadastro.html')
+
 
 
 
@@ -156,20 +184,22 @@ def inicio(request):
 ## @login_required(login_url='login')
 
 
-import base64
 from django.shortcuts import render
-from .models import Usuario
+from .models import Usuario  # Ajuste para importar seu modelo
 
 def demonstrativo(request):
     usuarios = Usuario.objects.all()
 
-    # Iterar sobre os usuários para converter as imagens em base64
+    # Adiciona o caminho da imagem para cada usuário
     for usuario in usuarios:
         if usuario.imagem:
-            # Converte a imagem (BLOB) para base64
-            usuario.imagem_base64 = base64.b64encode(usuario.imagem).decode('utf-8')
+            usuario.imagem_url = usuario.imagem  # Caminho armazenado no banco de dados
+        else:
+            usuario.imagem_url = None
 
     return render(request, 'demonstrativo.html', {'usuarios': usuarios})
+
+
 
 
 
@@ -189,11 +219,12 @@ def obter_imagem_usuario(request, id_user):
 
 
 
-
+from .models import Cursos
 ## @login_required(login_url='login')
 @csrf_exempt
 def formulario(request):
-    return render(request, 'formulario.html')
+    cursos = Cursos.objects.filter(status_curso=True)  # Filtra apenas os cursos com status ativo
+    return render(request, 'formulario.html', {'cursos': cursos})
 
 ## @login_required(login_url='login')
 @csrf_exempt

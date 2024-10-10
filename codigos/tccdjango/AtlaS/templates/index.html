@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Início</title>
-    <link rel="icon" href="web-logo.png" type="image/x-icon">
+    <link rel="icon" href="{% static 'AtlaS/images/web-logo.png' %}" type="image/x-icon">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/index.css' %}">
     <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/navbar.css' %}">
@@ -161,7 +161,7 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const horariosContainer = document.querySelector('.horarios');
                     const nomesSalas = [
-                        'Auditório', 'Biblioteca', 'Automobilíst', 'Ofic. Costura', 'Elétrica 1', 'Elétrica 2', 'Solda', 
+                        'Auditório', 'Biblioteca', 'Automobilíst', 'Ofic. Costura', 'Solda', 
                         'Usinagem', 'Sala C1', 'Sala C2', 'Sala C3', 'Lab. Admin', 'Sala C5', 'Lab. CAD', 'Lab. CAM', 
                         'Sala TI 1', 'Sala TI 2', 'Sala TI 3', 'Sala TI 4', 'Sala HIDR', 'Sala CLP', 'Eletroeletrô', 
                         'MÁQ/COM', 'Of. Elet 1', 'Of. Elet 2', 'Automação', 'Metrologia', 'Lab. TI Redes'

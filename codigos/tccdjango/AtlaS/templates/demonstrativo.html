@@ -11,14 +11,75 @@
     <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/navbar.css' %}">
     <script src='main.js' defer></script>
     <style>
-      html, body {
-          margin: 0; /* Certifique-se de que não haja margens */
-          background-image: url("{% static 'AtlaS/images/img_oficina.png' %}");
-          background-size: cover;
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-attachment: fixed; /* Adiciona esta linha para manter a imagem fixa */
-      }
+        html, body {
+            margin: 0;
+            background-image: url("{% static 'AtlaS/images/img_oficina.png' %}");
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 999; 
+            padding-top: 60px; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.9); 
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease; /* Transição suave */
+        }
+
+        .thumbnail {
+            cursor: pointer;
+            transition: transform 0.4s ease; /* Transição suave para miniaturas */
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1); /* Efeito ao passar o mouse */
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 30px; 
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .userTable {
+            display: none; 
+        }
     </style>
 </head>
 <body>
@@ -55,43 +116,47 @@
       <main>
         <h2 class="toggle-button">Demonstrativo de Usuários</h2>
         <table class="userTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Categoria</th>
-                    <th>Imagem</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for usuario in usuarios %}
-                <tr>
-                    <td>{{ usuario.id_user }}</td>
-                    <td>{{ usuario.nome }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.telefone }}</td>
-                    <td>{{ usuario.id_categoria }}</td>
-                    <td><img src="data:image/jpeg;base64,{{ usuario.imagem_base64 }}" alt="Imagem de {{ usuario.nome }}" width="50" height="50">
-                    </td>
-                </tr>
-                {% endfor %}
-                
-            </tbody>
-        </table>
-        
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                  <th>Categoria</th>
+                  <th>Imagem</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for usuario in usuarios %}
+              <tr>
+                  <td>{{ usuario.id_user }}</td>
+                  <td>{{ usuario.nome }}</td>
+                  <td>{{ usuario.email }}</td>
+                  <td>{{ usuario.telefone }}</td>
+                  <td>{{ usuario.id_categoria }}</td>
+                  <td>
+                    <img class="thumbnail" src="{% static usuario.imagem %}" alt="Imagem de {{ usuario.nome }}" width="100" height="100">
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
     </main>
-    
-    
-    
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="imgModal">
+    </div>
+
     <script>
+        // Função para abrir a tabela ao clicar no h2
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButtons = document.querySelectorAll('.toggle-button');
 
             toggleButtons.forEach((button) => {
                 button.addEventListener('click', () => {
-                    const table = button.nextElementSibling; // A próxima tabela após o botão
+                    const table = button.nextElementSibling;
 
                     if (table.style.display === 'none' || table.style.display === '') {
                         table.style.display = 'table';
@@ -103,6 +168,29 @@
                 });
             });
         });
+
+        // Modal para exibir imagens em tela cheia
+        const modal = document.getElementById("myModal");
+        const modalImg = document.getElementById("imgModal");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        document.querySelectorAll('.thumbnail').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = "block";  // Exibe o modal
+                modalImg.src = this.src;        // Define a imagem no modal
+                modalImg.classList.add('active'); // Adiciona a classe para a transição
+            });
+        });
+
+        closeBtn.onclick = function() { 
+            modal.style.display = "none";
+        }
+
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>

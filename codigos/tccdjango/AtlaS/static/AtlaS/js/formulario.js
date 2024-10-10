@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const turnRadios = document.querySelectorAll('input[name="turn"]');
 
     const calendarios = {
-        'manha-antes': { container: document.getElementById('calendario-manha-antes'), bookedDates: [15], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayManhaAntes') },
-        'manha-apos': { container: document.getElementById('calendario-manha-apos'), bookedDates: [2], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayManhaApos') },
-        'tarde-antes': { container: document.getElementById('calendario-tarde-antes'), bookedDates: [10], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayTardeAntes') },
-        'tarde-apos': { container: document.getElementById('calendario-tarde-apos'), bookedDates: [20], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayTardeApos') },
+        'manha-antes': { container: document.getElementById('calendario-manha-antes'), bookedDates: [], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayManhaAntes') },
+        'manha-apos': { container: document.getElementById('calendario-manha-apos'), bookedDates: [], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayManhaApos') },
+        'tarde-antes': { container: document.getElementById('calendario-tarde-antes'), bookedDates: [], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayTardeAntes') },
+        'tarde-apos': { container: document.getElementById('calendario-tarde-apos'), bookedDates: [], selectedDays: {}, currentMonth: new Date().getMonth(), currentYear: new Date().getFullYear(), monthDisplay: document.getElementById('monthDisplayTardeApos') },
     };
 
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
@@ -23,17 +23,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const year = calendarObj.currentYear;
         const daysInMonth = month === 1 && isLeapYear(year) ? 29 : monthDays[month];
         const today = new Date();
-
+    
         // Atualiza o texto do mês e ano
         calendarObj.monthDisplay.textContent = `${monthNames[month]} ${year}`;
-
+    
         calendar.innerHTML = ''; // Limpa o calendário
-
+    
+        // Adiciona as iniciais dos dias da semana
+        const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+        weekDays.forEach(day => {
+            const weekDayElement = document.createElement('div');
+            weekDayElement.classList.add('day');
+            weekDayElement.textContent = day;
+            weekDayElement.style.fontWeight = 'bold'; // Torna o texto em negrito
+            calendar.appendChild(weekDayElement);
+        });
+    
+        // Adiciona células vazias para os dias antes do primeiro dia do mês
+        const firstDay = new Date(year, month, 1).getDay(); // Dia da semana do primeiro dia do mês
+    
+        for (let i = 0; i < firstDay; i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.classList.add('day');
+            calendar.appendChild(emptyCell);
+        }
+    
         for (let i = 1; i <= daysInMonth; i++) {
             const day = document.createElement('div');
             day.classList.add('day');
             day.textContent = i;
-
+    
             const selectedDate = new Date(year, month, i);
             if (selectedDate < today) {
                 day.classList.add('booked');
@@ -46,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (calendarObj.selectedDays[`${year}-${month}`]?.includes(i)) {
                     day.classList.add('selected');
                 }
-
+    
                 day.onclick = () => {
                     // Inicializa o array se ainda não existir para o ano e mês atual
                     if (!calendarObj.selectedDays[`${year}-${month}`]) {
                         calendarObj.selectedDays[`${year}-${month}`] = [];
                     }
-
+    
                     // Adiciona ou remove o dia da seleção
                     if (calendarObj.selectedDays[`${year}-${month}`].includes(i)) {
                         calendarObj.selectedDays[`${year}-${month}`] = calendarObj.selectedDays[`${year}-${month}`].filter(day => day !== i); // Remove da seleção
@@ -63,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 };
             }
-
+    
             calendar.appendChild(day);
         }
     }

@@ -129,3 +129,10 @@
 .login-icon-wrapper:hover .dropdown {
   display: block; /* Exibe o dropdown quando o mouse passa sobre o contêiner do ícone */
 }
+
+.profile-image {
+  width: 40px; /* Ajuste o tamanho conforme necessário */
+  height: 40px;
+  border-radius: 50%; /* Formato circular */
+  object-fit: cover; /* Mantém a proporção */
+}

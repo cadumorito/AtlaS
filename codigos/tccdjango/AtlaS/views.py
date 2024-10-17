@@ -12,27 +12,9 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 # views.py
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Usuario, Categoria
-
 from .models import Usuario, Categoria
 from django.shortcuts import get_object_or_404
 
-from django.http.response import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Usuario, Categoria
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Usuario, Categoria
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Usuario, Categoria
-from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -59,6 +41,12 @@ from django.contrib import messages
 from .models import Usuario, Categoria
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Usuario, Categoria  # Certifique-se de importar seus modelos
+import os
+from PIL import Image
 
 @csrf_exempt
 def cadastro(request):
@@ -147,26 +135,44 @@ def reset_password(request):
     return render(request, 'reset_password.html')
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.hashers import check_password
+from .models import Usuario  # Certifique-se de que o modelo está importado
+
 @csrf_exempt
 def login(request):
-    if request.method == 'GET':
-        return render(request, 'login.html')
-    else:
+    if request.method == 'POST':
         email = request.POST.get('email')
-        password = request.POST.get('password')
+        senha = request.POST.get('senha')  # Use 'senha' aqui
 
         try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return render(request, 'login.html', {'error_message': 'E-mail ou senha incorretos!'})
+            usuario = Usuario.objects.get(email=email)
+        except Usuario.DoesNotExist:
+            messages.error(request, 'E-mail ou senha incorretos!')
+            return render(request, 'login.html')
 
-        user = authenticate(username=user.username, password=password)
+        if check_password(senha, usuario.senha):  # Verifica a senha
+            auth_login(request, usuario)  # Autentica o usuário
+            messages.success(request, 'Login realizado com sucesso!')
 
-        if user:
-            login_django(request, user)
-            return render(request, 'login.html', {'success_message': 'Login realizado com sucesso!'})
+            # Verifica se o usuário está autenticado
+            if request.user.is_authenticated:
+                print("Usuário autenticado:", request.user.nome)  # Exibe nome do usuário
+            else:
+                print("Usuário não autenticado após login.")
+
+            return redirect('inicio')
         else:
-            return render(request, 'login.html', {'error_message': 'E-mail ou senha incorretos!'})
+            messages.error(request, 'E-mail ou senha incorretos!')
+            return render(request, 'login.html')
+
+    return render(request, 'login.html')
+
+
+
+
 
 
 ## @login_required(login_url='login')

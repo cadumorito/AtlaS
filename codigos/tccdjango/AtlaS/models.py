@@ -11,18 +11,18 @@ class Categoria(models.Model):
 
 from django.db import models
 
-
 class Usuario(models.Model):
-    id_user = models.AutoField(primary_key=True)  # Definindo id_usuario como chave primária
+    id_user = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
-    email = models.EmailField()
-    senha = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)  # Certifique-se de que o email seja único
+    senha = models.CharField(max_length=128)  # Campo para senha
     telefone = models.CharField(max_length=20)
-    id_categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)  # Chave estrangeira para categorias
-    imagem = models.ImageField(blank=True, null=True) 
+    id_categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
+    imagem = models.ImageField(blank=True, null=True)
 
     class Meta:
-        db_table = 'usuarios'  # Opcional: define o nome da tabela no banco de dados
+        db_table = 'usuarios'
+
 
 from django.db import models
 

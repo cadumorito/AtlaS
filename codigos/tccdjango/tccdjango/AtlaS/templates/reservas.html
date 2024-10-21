@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-BR">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Reservas</title>
+    <link rel="icon" href="{% static 'AtlaS/images/web-logo.png' %}" type="image/x-icon">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/reservas.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/reservar.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/navbar.css' %}">
+    <script src='main.js'></script>
+</head>
+<body>
+    <style>
+      html, body {
+          margin: 0; 
+          background-image: url("{% static 'AtlaS/images/img_oficina.png' %}");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed; 
+      }
+    </style>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <img src="{% static 'AtlaS/images/logo-branca.png' %}" alt="Logo">
+      </div>
+      <div class="redirecionamentos">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">INÍCIO</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'demonstrativo' %}">DEMONSTRATIVO</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reservas' %}">RESERVAS</a></li>
+        </ul>
+      </div>
+      <div class="icones">
+        <div class="login-icon-wrapper">
+          <a>
+            <i class="bi-person"></i>
+            <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+            </svg>
+          </a>
+          <div class="dropdown"> 
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'minhas_reservas' %}">Minhas Reservas</a>
+                <a href="{% url 'logout' %}">Desconectar-se</a>
+            {% else %}
+                <a href="{% url 'cadastro' %}">Cadastrar-se</a>
+                <a href="{% url 'login' %}">Conectar-se</a>
+            {% endif %}
+        </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+    <main>
+        <h1 class="title">Reservas</h1>
+        <div class="buttons2">
+          <button class="button_out">Gerar PDF</button>
+          <button class="button_out" id="reserva" onclick="scrollToDiv()">Fazer reserva</button>
+          <a href="{% url 'relatorio' %}"><button class="button_out">Relatório</button></a>
+        </div>
+        <div class="container-filtro">
+          <!-- Input para seleção de data usando um calendário -->
+          <label for="dataFiltro">Filtrar por Data:</label>
+          <input type="date" id="dataFiltro">
+
+          <!-- Combo box para seleção de período -->
+          <label for="turnoFiltro">Filtrar por Turno:</label>
+          <select id="turnoFiltro">
+              <option value="">Todos os turnos</option>
+              <option value="Manhã">Manhã</option>
+              <option value="Tarde">Tarde</option>
+          </select>
+
+          <label for="periodoFiltro">Filtrar por Período:</label>
+          <select id="periodoFiltro">
+              <option value="">Todos os períodos</option>
+              <option value="Após o intervalo">Após o intervalo</option>
+              <option value="Antes do intervalo">Antes do intervalo</option>
+          </select>
+        </div>
+        <div class="table-container">
+          <table id="reservasTable">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Sala</th>
+                      <th>Turno</th>
+                      <th>Período</th>
+                      <th>Data de Cadastro</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>Auditório</td>
+                      <td>Manhã</td>
+                      <td>Após o intervalo</td>
+                      <td>2024-01-15</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>Auditório</td>
+                      <td>Tarde</td>
+                      <td>Após o intervalo</td>
+                      <td>2023-11-20</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>C3</td>
+                      <td>Manha</td>
+                      <td>Antes do intervalo</td>
+                      <td>2024-03-05</td>
+                  </tr>
+                  <tr>
+                      <td>4</td>
+                      <td>C3</td>
+                      <td>Tarde</td>
+                      <td>Antes do intervalo</td>
+                      <td>2023-12-10</td>
+                  </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>C1</td>
+                      <td>Tarde</td>
+                      <td>Antes do intervalo</td>
+                      <td>2024-02-28</td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+        <script>
+          function scrollToDiv() {
+              const elements = document.getElementsByClassName('salas');
+              if (elements.length > 0) {
+                  elements[0].scrollIntoView({ behavior: 'smooth' }); // Acessa o primeiro elemento com a classe 'salas'
+              }
+          }
+        </script>
+        <div class="salas">
+          <article class="card" id="auditorio">
+            <img
+                id="auditorio-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/AUDITORIO.jpg' %}"
+                alt="Planta do Auditório"
+                width="1920"
+                height="2193"
+            />
+            <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                    <h2 class="card__title">AUDITÓRIO</h2>
+                    <p class="card__description">
+                        Espaço amplo e equipado para palestras, workshops e apresentações. Ideal para eventos!
+                    </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('auditorio-img', 'Auditório')">
+                    RESERVAR
+                </button>
+            </div>
+        </article>
+        <article class="card" id="biblioteca">
+          <img
+          id="biblioteca-img"
+            class="card__background"
+            src="{% static 'AtlaS/images/plantas-imagens/BIBLIOTECA.jpg' %}"
+            alt="Planta da sala específica"
+            width="1920"
+            height="2193"
+          />
+          <div class="card__content | flow">
+            <div class="card__content--container | flow">
+              <h2 class="card__title">BIBLIOTECA</h2>
+              <p class="card__description">
+                Local tranquilo e organizado, perfeito para estudo, leitura e pesquisa. Recursos variados disponíveis!
+              </p>
+            </div>
+            <button class="shadow__btn" onclick="reservarSala('biblioteca-img', 'Biblioteca')">
+                RESERVAR
+            </button>
+          </div>
+        </article>
+        <article class="card" id="automobilistica">
+          <img
+          id="automob-img"
+            class="card__background"
+            src="{% static 'AtlaS/images/plantas-imagens/OFIC_AUTOMOBILISTICA.jpg' %}"
+            alt="Planta da sala específica"
+            width="1920"
+            height="2193"
+          />
+          <div class="card__content | flow">
+            <div class="card__content--container | flow">
+              <h2 class="card__title">AUTOMOB.</h2>
+              <p class="card__description">
+                Espaço especializado para o estudo de manutenção e de reparos de veículos.
+              </p>
+            </div>
+            <button class="shadow__btn" onclick="reservarSala('automob-img', 'Oficina de Automobilística')">
+              RESERVAR
+          </button>
+          </div>
+        </article>
+        </div>
+        <div class="salas">
+          <article class="card" id="costura">
+            <img
+            id="costura-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/OFIC_COSTURA.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">OFIC. COSTURA</h2>
+                <p class="card__description">
+                  Ambiente criativo para aprender e desenvolver técnicas de costura. Projetos personalizados e práticas!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('costura-img', 'Oficina de Costura')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="metrologia">
+            <img
+            id="metro-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_METROLOGIA.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">METROLOGIA</h2>
+                <p class="card__description">
+                  Ambiente dedicado à medição e controle de precisão. Essencial para garantir qualidade e conformidade em processos!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('metro-img', 'Laboratório de Metrologia')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="automacao">
+            <img
+            id="auto-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_AUTOMRESIDENCIAL.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">AUTOMAÇÃO</h2>
+                <p class="card__description">
+                  Espaço voltado para o estudo e aplicação de sistemas automatizados,  como o uso da Alexa.
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('auto-img', 'Laboratório de Automoção Residencial')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+        </div>
+        <div class="salas">
+          <article class="card" id="solda">
+            <img
+            id="solda-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/SOLDA.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">SOLDA</h2>
+                <p class="card__description">
+                  Espaço seguro e equipado para aprender técnicas de soldagem. Ideal para projetos metálicos!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('solda-img', 'Sala de Solda')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="usinagem">
+            <img
+            id="usinagem-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/OFIC_USINAGEM.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">USINAGEM</h2>
+                <p class="card__description">
+                  Área técnica para corte e modelagem de metais. Ideal para criar peças precisas e personalizadas!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('usinagem-img', 'Oficina de Usinagem')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="tiredes">
+            <img
+            id="redes-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_TI_REDES.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">LAB. TI REDES</h2>
+                <p class="card__description">
+                  Espaço para estudo e prática em redes de computadores. Focado em conectividade e gestão de sistemas!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('redes-img', 'Laboratório de Redes - TI')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+        </div>
+        <div class="salas">
+          <article class="card" id="c1">
+            <img
+            id="c1-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/SALA_C1.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">SALA C1</h2>
+                <p class="card__description">
+                  Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('c1-img', 'Sala C1')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="c2">
+            <img
+            id="c2-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/SALA_C2.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">SALA C2</h2>
+                <p class="card__description">
+                  Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('c2-img', 'Sala C2')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="c3">
+            <img
+            id="c3-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/SALA_C3.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">SALA C3</h2>
+                <p class="card__description">
+                  Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('c3-img', 'Sala C3')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+        </div>
+        <div class="salas">
+          <article class="card" id="admin">
+            <img
+            id="admin-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/SALA_C4_ADM.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">LAB. ADMIN</h2>
+                <p class="card__description">
+                  Espaço dedicado à gestão e organização de projetos. Focado em estratégias e eficiência operacional!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('admin-img', 'Laboratório de Adminstração')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="c5">
+            <img
+            id="c5-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/SALA_C5.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">SALA C5</h2>
+                <p class="card__description">
+                  Espaço versátil para reuniões e atividades. Equipado para promover colaboração e aprendizado dinâmico!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('c5-img', 'Sala C5')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="cad">
+            <img
+            id="cad-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_CAD.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">LAB. CAD</h2>
+                <p class="card__description">
+                  Ambiente dedicado ao design e modelagem 3D de projetos. Ideal para criar e desenvolver ideias inovadoras!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('cad-img', 'Laboratório CAD')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+        </div>
+        <div class="salas">
+          <article class="card" id="cam">
+            <img
+            id="cam-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_CAM.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">LAB. CAM</h2>
+                <p class="card__description">
+                  Espaço tecnológico para produção automatizada de peças. Integra design e fabricação com precisão!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('cam-img', 'Laboratório CAM')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="ti1">
+            <img
+            id="ti1-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_TI_1e2.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">SALA TI1</h2>
+                <p class="card__description">
+                  Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('ti1-img', 'Laboratório TI 1')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          <article class="card" id="ti2">
+            <img
+            id="ti2-img"
+              class="card__background"
+              src="{% static 'AtlaS/images/plantas-imagens/LAB_TI_1e2.jpg' %}"
+              alt="Planta da sala específica"
+              width="1920"
+              height="2193"
+            />
+            <div class="card__content | flow">
+              <div class="card__content--container | flow">
+                <h2 class="card__title">SALA TI2</h2>
+                <p class="card__description">
+                  Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
+                </p>
+              </div>
+              <button class="shadow__btn" onclick="reservarSala('ti2-img', 'Laboratório TI 2')">
+                RESERVAR
+            </button>
+            </div>
+          </article>
+          </div>
+          <div class="salas">
+            <article class="card" id="ti3">
+              <img
+              id="ti3-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/LAB_TI_3e4.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">SALA TI3</h2>
+                  <p class="card__description">
+                    Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('ti3-img', 'Laboratório TI 3')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+            <article class="card" id="ti4">
+              <img
+              id="ti4"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/LAB_TI_3e4.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">SALA TI4</h2>
+                  <p class="card__description">
+                    Ambiente dedicado à tecnologia da informação. Ideal para suporte, desenvolvimento e inovação em sistemas!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('ti4-img', 'Laboratório TI 4')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+            <article class="card" id="hidr">
+              <img
+              id="hidr-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/LAB_HIDR.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">SALA HIDR</h2>
+                  <p class="card__description">
+                    Espaço voltado para estudos e práticas em hidráulica. Ideal para experimentos e simulações de fluidos!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('hidr-img', 'Laboratório de Hidráulica')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+            </div>
+          <div class="salas">
+            <article class="card" id="clp">
+              <img
+              id="clp-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/LAB_CLP.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">SALA CLP</h2>
+                  <p class="card__description">
+                    Ambiente para aprendizado em controle lógico programável. Focado em automação industrial e práticas técnicas!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('clp-img', 'Sala CLP')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+            <article class="card" id="eletroeletronica">
+              <img
+              id="eletroele-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/LAB_ELETROELETRONICA.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">ELETROELE.</h2>
+                  <p class="card__description">
+                    Espaço para estudo e experimentação em circuitos elétricos e eletrônicos. Ideal para prática e inovação!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('eletroele-img', 'Laboratório de Eletroeletrônica')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+            <article class="card" id="maqcom">
+              <img
+              id="maqcom-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/LAB_MAQUINA_E_COMANDOS.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">MÁQ/COM</h2>
+                  <p class="card__description">
+                    Espaço dedicado a máquinas e comandos. Focado em automação e controle de processos industriais!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('maqcom-img', 'Laboratório de Máquina e Comandos')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+            </div>
+          <div class="salas">
+            <article class="card" id="ofelet1">
+              <img
+              id="ofelet1-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/OFICINA_ELETRICA_1e2.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">OF. ELET 1</h2>
+                  <p class="card__description">
+                    Ambiente prático para aprendizado sobre instalações e manutenção elétrica. Segurança e eficiência em foco!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('ofelet1-img', 'Oficina Elétrica 1')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+            <article class="card" id="ofelet2">
+              <img
+              id="ofelet2-img"
+                class="card__background"
+                src="{% static 'AtlaS/images/plantas-imagens/OFICINA_ELETRICA_1e2.jpg' %}"
+                alt="Planta da sala específica"
+                width="1920"
+                height="2193"
+              />
+              <div class="card__content | flow">
+                <div class="card__content--container | flow">
+                  <h2 class="card__title">OF. ELET 2</h2>
+                  <p class="card__description">
+                    Ambiente prático para aprendizado sobre instalações e manutenção elétrica. Segurança e eficiência em foco!
+                  </p>
+                </div>
+                <button class="shadow__btn" onclick="reservarSala('ofelet2-img', 'Oficina Elétrica 2')">
+                  RESERVAR
+              </button>
+              </div>
+            </article>
+
+              </div>
+                <div style="margin-bottom: 60px;"></div>
+    </main>
+
+    <script>
+        document.getElementById('dataFiltro').addEventListener('change', filterTable);
+        document.getElementById('periodoFiltro').addEventListener('change', filterTable);
+
+        function filterTable() {
+            const selectedDate = document.getElementById('dataFiltro').value;
+            const selectedPeriod = document.getElementById('periodoFiltro').value;
+            const tableRows = document.querySelectorAll('#reservasTable tbody tr');
+
+            tableRows.forEach(row => {
+                const dateCell = row.cells[4].innerText; // A quinta coluna contém a data
+                const periodCell = row.cells[3].innerText; // A quarta coluna contém o período
+
+                // Convertendo a data para o formato americano
+                const formattedDate = convertToAmericanDate(dateCell);
+
+                // Verifica se a linha deve ser exibida
+                const matchesDate = selectedDate === "" || formattedDate === selectedDate;
+                const matchesPeriod = selectedPeriod === "" || periodCell === selectedPeriod;
+
+                if (matchesDate && matchesPeriod) {
+                    row.style.display = ""; // Mostra a linha
+                } else {
+                    row.style.display = "none"; // Esconde a linha
+                }
+            });
+        }
+
+        function convertToAmericanDate(dateString) {
+            const parts = dateString.split("-");
+            return parts[0] + "-" + parts[1] + "-" + parts[2]; // YYYY-MM-DD
+        }
+
+        
+    </script>
+<script>
+  function reservarSala(imageId, courseName) {
+      // Pega o elemento de imagem pelo id e seu atributo src
+      var imageElement = document.getElementById(imageId);
+      var imageSrc = imageElement.src;
+
+      // Redireciona para a URL do formulário com o parâmetro da imagem e o nome do curso
+      window.location.href = "{% url 'formulario' %}?image=" + encodeURIComponent(imageSrc) + "&courseName=" + encodeURIComponent(courseName);
+  }
+</script>
+
+  </script>
+</body>
+</html>

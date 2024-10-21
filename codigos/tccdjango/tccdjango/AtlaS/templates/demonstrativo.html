@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Demonstrativo</title>
+    <link rel="icon" href="web-logo.png" type="image/x-icon">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/demonstrativo.css' %}">
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'AtlaS/css/navbar.css' %}">
+    <script src='main.js' defer></script>
+    <style>
+        html, body {
+            margin: 0;
+            background-image: url("{% static 'AtlaS/images/img_oficina.png' %}");
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 999; 
+            padding-top: 60px; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.9); 
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease; /* Transição suave */
+        }
+
+        .thumbnail {
+            cursor: pointer;
+            transition: transform 0.4s ease; /* Transição suave para miniaturas */
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1); /* Efeito ao passar o mouse */
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 30px; 
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .userTable {
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+          <div class="logo">
+            <img src="{% static 'AtlaS/images/logo-branca.png' %}" alt="Logo">
+          </div>
+          <div class="redirecionamentos">
+            <ul class="navbar-nav">
+              <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">INÍCIO</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'demonstrativo' %}">DEMONSTRATIVO</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'reservas' %}">RESERVAS</a></li>
+            </ul>
+          </div>
+          <div class="icones">
+            <div class="login-icon-wrapper">
+              <a>
+                <i class="bi-person"></i>
+                <svg class="login-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+              </a>
+              <div class="dropdown"> 
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'minhas_reservas' %}">Minhas Reservas</a>
+                    <a href="{% url 'logout' %}">Desconectar-se</a>
+                {% else %}
+                    <a href="{% url 'cadastro' %}">Cadastrar-se</a>
+                    <a href="{% url 'login' %}">Conectar-se</a>
+                {% endif %}
+            </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <main>
+        <h2 class="toggle-button">Demonstrativo de Usuários</h2>
+        <table class="userTable">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                  <th>Categoria</th>
+                  <th>Imagem</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for usuario in usuarios %}
+              <tr>
+                  <td>{{ usuario.id_user }}</td>
+                  <td>{{ usuario.nome }}</td>
+                  <td>{{ usuario.email }}</td>
+                  <td>{{ usuario.telefone }}</td>
+                  <td>{{ usuario.id_categoria }}</td>
+                  <td>
+                    <img class="thumbnail" src="{% static usuario.imagem %}" alt="Imagem de {{ usuario.nome }}" width="100" height="100">
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </main>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="imgModal">
+    </div>
+
+    <script>
+        // Função para abrir a tabela ao clicar no h2
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButtons = document.querySelectorAll('.toggle-button');
+
+            toggleButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const table = button.nextElementSibling;
+
+                    if (table.style.display === 'none' || table.style.display === '') {
+                        table.style.display = 'table';
+                        button.classList.add('active');
+                    } else {
+                        table.style.display = 'none';
+                        button.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Modal para exibir imagens em tela cheia
+        const modal = document.getElementById("myModal");
+        const modalImg = document.getElementById("imgModal");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        document.querySelectorAll('.thumbnail').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = "block";  // Exibe o modal
+                modalImg.src = this.src;        // Define a imagem no modal
+                modalImg.classList.add('active'); // Adiciona a classe para a transição
+            });
+        });
+
+        closeBtn.onclick = function() { 
+            modal.style.display = "none";
+        }
+
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

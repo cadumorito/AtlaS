@@ -146,18 +146,18 @@ from django.contrib.auth import authenticate, login
 
 @csrf_exempt
 def login_view(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        senha = request.POST.get('senha')
-        usuario = authenticate(request, username=email, password=senha)
+    if request.method == 'POST': # Se o formulário tiver o método post
+        email = request.POST.get('email') # Pega o email do usuário
+        senha = request.POST.get('senha') # Pega a senha do usuário
+        usuario = authenticate(request, username=email, password=senha) # Autentificação do usuário após o login
 
-        if usuario is not None:
+        if usuario is not None: # Se o usuário não for vazio, ou seja, se houver um usuário corretamente autentificado
             login(request, usuario)
             return redirect('inicio')  # Redireciona para a página de 'inicio' após o login
         else:
-            return render(request, 'login.html', {'error_message': 'Email ou senha incorretos'})
+            return render(request, 'login.html', {'error_message': 'Email ou senha incorretos'}) # Erro de login
 
-    return render(request, 'login.html')
+    return render(request, 'login.html') # Retorna a tela atual com o html
 
 
 

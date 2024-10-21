@@ -43,7 +43,6 @@
             </svg>
           </a>
           <div class="dropdown">
-            <div class="dropdown"> 
               {% if request.user.is_authenticated %}
                   <a href="{% url 'logout' %}">Desconectar-se</a>
               {% else %}

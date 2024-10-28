@@ -1,4 +1,4 @@
-create database AtlaS;
+d database AtlaS;
 use Atlas;
 
 create table salas (

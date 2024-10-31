@@ -1,4 +1,4 @@
-d database AtlaS;
+create database AtlaS;
 use Atlas;
 
 create table salas (
@@ -20,7 +20,7 @@ create table usuarios (
 id_user int auto_increment primary key,
     nome varchar(100) not null,
     email varchar(100) unique not null,
-    senha varchar(50),
+    senha varchar(250),
     imagem varchar(250),
     telefone varchar(20),
     id_categoria_id int,
@@ -453,8 +453,8 @@ VALUES
 'PERFIL: Reconhece a análise da concorrência, identificando seus diferenciais competitivos para alinhamento estratégico da organização.',
 'Administração e Gestão');
 
-insert into salas(nome)
-values
+INSERT INTO salas(nome)
+VALUES
 ('Auditório'),
 ('Biblioteca'),
 ('Oficina de Automobilística'),
@@ -469,18 +469,19 @@ values
 ('Sala C3'),
 ('Laboratório de Administração'),
 ('Sala C5'),
-('Laboratório de CAD'),
-('Laboratório de CAM'),
-('Sala TI 1'),
-('Sala TI 2'),
-('Sala TI 3'),
-('Sala TI 4'),
+('Laboratório CAD'),
+('Laboratório CAM'),
+('Laboratório TI 1'),
+('Laboratório TI 2'),
+('Laboratório TI 3'),
+('Laboratório TI 4'),
 ('Laboratório de Hidráulica'),
-('Sala de CLP'),
+('Sala CLP'),
 ('Laboratório de Eletroeletrônica'),
 ('Laboratório de Máquina e Comandos'),
 ('Oficina Elétrica 1'),
 ('Oficina Elétrica 2');
+
 
 DELIMITER $$
 
@@ -490,9 +491,10 @@ BEGIN
     DECLARE ultima_data DATE;
     DECLARE hoje DATE;
     DECLARE status_reserva INT;
+    DECLARE id_sala INT;
 
-    -- Defina a data inicial e final para o ano
-    SET data_atual = '2024-07-01';
+    -- Define a data inicial e final para o ano
+    SET data_atual = '2024-01-01';
     SET ultima_data = '2024-12-31';
     SET hoje = CURDATE(); -- Define a data atual do sistema
 
@@ -506,13 +508,22 @@ BEGIN
             SET status_reserva = 1; -- Disponível
         END IF;
 
-        -- Insere as 4 combinações de turno e período para cada dia
-        INSERT INTO reservas (id_user_id, id_room_id, id_turno_id, id_periodo_id, reserved_day, id_status_id, reserve_time)
-        VALUES
-        (1, 1, 1, 1, data_atual, status_reserva, NOW()), -- Manhã, Antes do Intervalo
-        (1, 1, 1, 2, data_atual, status_reserva, NOW()), -- Manhã, Após o Intervalo
-        (1, 1, 2, 1, data_atual, status_reserva, NOW()), -- Tarde, Antes do Intervalo
-        (1, 1, 2, 2, data_atual, status_reserva, NOW()); -- Tarde, Após o Intervalo
+        -- Loop para percorrer cada sala de 1 a 26
+        SET id_sala = 1;
+        WHILE id_sala <= 26 DO
+
+            -- Insere as 4 combinações de turno e período para cada dia e sala
+            INSERT INTO reservas (id_user_id, id_room_id, id_turno_id, id_periodo_id, reserved_day, id_status_id, reserve_time)
+            VALUES
+            (1, id_sala, 1, 1, data_atual, status_reserva, NOW()), -- Manhã, Antes do Intervalo
+            (1, id_sala, 1, 2, data_atual, status_reserva, NOW()), -- Manhã, Após o Intervalo
+            (1, id_sala, 2, 1, data_atual, status_reserva, NOW()), -- Tarde, Antes do Intervalo
+            (1, id_sala, 2, 2, data_atual, status_reserva, NOW()); -- Tarde, Após o Intervalo
+
+            -- Avança para a próxima sala
+            SET id_sala = id_sala + 1;
+
+        END WHILE;
 
         -- Avança para o próximo dia
         SET data_atual = DATE_ADD(data_atual, INTERVAL 1 DAY);

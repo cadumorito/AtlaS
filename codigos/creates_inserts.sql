@@ -1,4 +1,4 @@
-create database AtlaS;
+create database Atlas;
 use Atlas;
 
 create table salas (
@@ -61,21 +61,6 @@ insert into status(nome)
 values
 ('Disponível'),
 ('Indisponível');
-
-create table reservas (
-id_reserva int auto_increment primary key,
-    id_user_id int,
-    id_room_id int,
-    id_turno_id int,
-    id_periodo_id int,
-    reserved_day date,
-    id_status_id int,
-    reserve_time datetime,
-    foreign key (id_status_id) references status(id_status),
-    foreign key (id_periodo_id) references periodos(id_periodo),
-    foreign key (id_turno_id) references turnos(id_turno),
-    foreign key (id_user_id) references usuarios(id_user),
-    foreign key (id_room_id) references salas(id_room));
    
     CREATE TABLE cursos (
     id_curso INT AUTO_INCREMENT PRIMARY KEY,
@@ -481,6 +466,79 @@ VALUES
 ('Laboratório de Máquina e Comandos'),
 ('Oficina Elétrica 1'),
 ('Oficina Elétrica 2');
+
+CREATE TABLE reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_user_id INT,
+    id_room_id INT,
+    id_turno_id INT,
+    id_periodo_id INT,
+    reserved_day DATE,
+    id_curso_id INT,
+    id_status_id INT,
+    reserve_time DATETIME,
+    FOREIGN KEY (id_status_id) REFERENCES status(id_status),
+    FOREIGN KEY (id_periodo_id) REFERENCES periodos(id_periodo),
+    FOREIGN KEY (id_turno_id) REFERENCES turnos(id_turno),
+    FOREIGN KEY (id_user_id) REFERENCES usuarios(id_user),
+    FOREIGN KEY (id_room_id) REFERENCES salas(id_room),
+    FOREIGN KEY (id_curso_id) REFERENCES cursos(id_curso)
+);
+
+CREATE TABLE reservas_log (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,  -- ID do log de auditoria
+    id_reserva_id INT,                      -- ID da reserva (chave estrangeira)
+    id_room_id INT,                         -- ID da sala (chave estrangeira)
+    id_turno_id INT,                        -- ID do turno (chave estrangeira)
+    id_periodo_id INT,                      -- ID do período (chave estrangeira)
+    reserved_day DATE,                      -- Data da reserva
+    id_curso_id INT,                        -- ID do curso (chave estrangeira)
+    id_user_id INT,                         -- ID do usuário (chave estrangeira)
+    reserve_time DATETIME,                  -- Hora de reserva
+    FOREIGN KEY (id_reserva_id) REFERENCES reservas(id_reserva),  -- Relaciona com a tabela reservas
+    FOREIGN KEY (id_room_id) REFERENCES salas(id_room),       -- Relaciona com a tabela salas
+    FOREIGN KEY (id_turno_id) REFERENCES turnos(id_turno),    -- Relaciona com a tabela turnos
+    FOREIGN KEY (id_periodo_id) REFERENCES periodos(id_periodo), -- Relaciona com a tabela periodos
+    FOREIGN KEY (id_curso_id) REFERENCES cursos(id_curso),    -- Relaciona com a tabela cursos
+    FOREIGN KEY (id_user_id) REFERENCES usuarios(id_user)     -- Relaciona com a tabela usuarios
+);
+
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER after_update_reservas
+AFTER UPDATE ON reservas
+FOR EACH ROW
+BEGIN
+    INSERT INTO reservas_log (
+        id_reserva_id, 
+        id_room_id, 
+        id_turno_id, 
+        id_periodo_id, 
+        reserved_day, 
+        id_curso_id, 
+        id_user_id, 
+        reserve_time
+    )
+    VALUES (
+        old.id_reserva,      -- Pegando o ID da reserva do novo valor
+        old.id_room_id,      -- Pegando o ID da sala do novo valor
+        old.id_turno_id,     -- Pegando o ID do turno do novo valor
+        old.id_periodo_id,   -- Pegando o ID do período do novo valor
+        old.reserved_day,    -- Pegando a data da reserva do novo valor
+        NEw.id_curso_id,     -- Pegando o ID do curso do novo valor
+        new.id_user_id,      -- Pegando o ID do usuário do novo valor
+        NEW.reserve_time     -- Pegando o tempo da reserva do novo valor
+    );
+END $$
+
+DELIMITER ;
+
+
+
+
 
 
 DELIMITER $$

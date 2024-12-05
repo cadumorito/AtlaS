@@ -26,6 +26,8 @@ id_user int auto_increment primary key,
     id_categoria_id int,
     last_login datetime,
     is_authenticated boolean,
+    is_superuser tinyint(1),
+	is_staff tinyint(1),
     foreign key (id_categoria_id) references categorias(id_categoria));
    
 INSERT INTO usuarios (nome, email, senha, telefone, id_categoria_id)
@@ -80,6 +82,9 @@ values
 INSERT INTO Cursos
 (nome_curso, status_curso, statusPag_curso, horas_curso, imagem_curso, dataInicio_curso, dataFim_curso, descricao_curso, programacao_curso, requisitos_curso, perfil_curso, topico_curso)
 VALUES
+
+('Indefinido', FALSE, 'Indefinido', '000:00:00', null, '2024-01-01', '2024-01-01', 'Indefinido', 'Indefinido', 'Indefinido', 'Indefinido', 'Indefindo'),
+
 ('Eletricista Instalador', TRUE, 'Gratuito', '160:00:00', NULL, '2024-04-15', '2024-04-23',
 'No curso Eletricista Instalador o aluno irá aprender a interpretar circuitos e diagramas elétricos, planta baixa de instalações elétricas prediais e a montagem de infraestrutura básica para instalação elétrica predial. Ao final do curso, poderá elaborar croquis, executar e conferir instalações elétricas prediais, de acordo com normas técnicas, ambientais, de qualidade e de segurança e saúde no trabalho.',
 'Fundamentos de Eletricidade: Materiais condutores e isolantes, Tensão, corrente, resistência e potência elétrica, Corrente Contínua e Alternada, Circuitos elétricos (série, paralelo e misto), Leis de Ohm e Kirchoff, Instrumentos de Medição, Multímetro, Alicate amperímetro, Diagramas Elétricos, Unifilar, Multifilar, Funcional. Cabeamento e Conexões: Cabos (flexível, rígido, PP e dados), Métodos de instalação, Tabelas de dimensionamento, Emendas. Segurança e Normalização: Sinalização, Símbolos de advertência. Dispositivos de proteção: Fusíveis, Disjuntor Termomagnético, Disjuntor diferencial residual (DDR), Interruptor diferencial residual (IDR), Dispositivo de proteção contra surto (DPS). Componentes de circuitos elétricos: Interruptores, Tomadas, Campainhas, Sensores. Normas Aplicadas a Instalação Elétrica e Meio Ambiente: Regulamentadora, Técnicas (5410), Ambientais. Dimensionamento de instalações elétricas: Divisão de circuitos, Dimensionamento de proteção (disjuntores, fusíveis, DPS e IDRs), Distribuição de cargas. Técnicas de montagem de infraestrutura: Quadro de distribuição, Conduletes, Perfilado, Eletrodutos, Eletrocalha. Instalação de circuitos de iluminação, tomadas e dispositivos eletrônicos.',
@@ -570,13 +575,13 @@ BEGIN
         SET id_sala = 1;
         WHILE id_sala <= 26 DO
 
-            -- Insere as 4 combinações de turno e período para cada dia e sala
-            INSERT INTO reservas (id_user_id, id_room_id, id_turno_id, id_periodo_id, reserved_day, id_status_id, reserve_time)
+            -- Insere as 4 combinações de turno e período para cada dia e sala, com id_curso_id = 1
+            INSERT INTO reservas (id_user_id, id_room_id, id_turno_id, id_periodo_id, reserved_day, id_status_id, id_curso_id, reserve_time)
             VALUES
-            (1, id_sala, 1, 1, data_atual, status_reserva, NOW()), -- Manhã, Antes do Intervalo
-            (1, id_sala, 1, 2, data_atual, status_reserva, NOW()), -- Manhã, Após o Intervalo
-            (1, id_sala, 2, 1, data_atual, status_reserva, NOW()), -- Tarde, Antes do Intervalo
-            (1, id_sala, 2, 2, data_atual, status_reserva, NOW()); -- Tarde, Após o Intervalo
+            (1, id_sala, 1, 1, data_atual, status_reserva, 1, NOW()), -- Manhã, Antes do Intervalo
+            (1, id_sala, 1, 2, data_atual, status_reserva, 1, NOW()), -- Manhã, Após o Intervalo
+            (1, id_sala, 2, 1, data_atual, status_reserva, 1, NOW()), -- Tarde, Antes do Intervalo
+            (1, id_sala, 2, 2, data_atual, status_reserva, 1, NOW()); -- Tarde, Após o Intervalo
 
             -- Avança para a próxima sala
             SET id_sala = id_sala + 1;
@@ -590,6 +595,7 @@ BEGIN
 END $$
 
 DELIMITER ;
+
 
 
 CALL InserirReservasParaAnoInteiro();

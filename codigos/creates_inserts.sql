@@ -12,7 +12,7 @@ nome varchar(100));
 insert into categorias (nome)
 values
 ("Coordenador"),
-("Instutor"),
+("Instrutor"),
 ("Apoio técnico"),
 ("Especialista");
 
